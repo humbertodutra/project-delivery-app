@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 
+// Feito pelo G4
+
 function App() {
   return (
     <div className="App">
