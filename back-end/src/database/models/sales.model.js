@@ -33,21 +33,21 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'sales'
     });
 
-  sales.associate = (models) => {
-    sales.belongsTo(models.users,
-      {
-        foreignKey: 'user_id',
-        as: 'user',
-      }, {
-      foreignKey: 'seller_id',
-      as: 'seller',
-    },
-    );
-    sales.hasMany(models.salesProduct, {
-      foreignKey: 'sale_id',
-      as: 'salesProducts'
-    })
-  };
+  // sales.associate = (models) => {
+  //   sales.belongsTo(models.users,
+  //     {
+  //       foreignKey: 'user_id',
+  //       as: 'user',
+  //     }, {
+  //     foreignKey: 'seller_id',
+  //     as: 'seller',
+  //   },
+  //   );
+  //   sales.hasMany(models.salesProduct, {
+  //     foreignKey: 'sale_id',
+  //     as: 'salesProducts'
+  //   })
+  // };
 
   return sales;
 };

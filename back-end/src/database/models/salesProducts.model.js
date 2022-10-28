@@ -4,12 +4,20 @@ module.exports = (sequelize, DataTypes) => {
     saleId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'sales',
+        key: 'id'
+      },
     },
     productId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
-      primaryKey: true
+      primaryKey: true,
+      references: {
+        model: 'products',
+        key: 'id'
+      },
     },
     quantity: DataTypes.INTEGER,
   },
@@ -19,21 +27,21 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'salesProducts',
     });
 
-  salesProducts.associate = (models) => {
-    models.sales.belongsToMany(models.products,
-      {
-        as: 'products',
-        through: salesProducts,
-        foreignKey: 'product_id',
-        otherKey: 'sale_id'
-      });
-    models.products.belongsToMany(models.sales, {
-      as: 'sales',
-      through: salesProducts,
-      foreignKey: 'sale_id',
-      otherKey: 'product_id'
-    });
-  };
+  // salesProducts.associate = (models) => {
+  //   models.sales.belongsTo(models.products,
+  //     {
+  //       as: 'products',
+  //       through: salesProducts,
+  //       foreignKey: 'product_id',
+  //       otherKey: 'sale_id'
+  //     });
+  //   models.products.belongsTo(models.sales, {
+  //     as: 'sales',
+  //     through: salesProducts,
+  //     foreignKey: 'sale_id',
+  //     otherKey: 'product_id'
+  //   });
+  // };
 
   return salesProducts;
 };
