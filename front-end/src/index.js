@@ -1,12 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import reportWebVitals from './reportWebVitals';
-import './index.css';
 import App from './App';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#eeb105',
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#816004',
+    },
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={ theme }>
+      <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );
