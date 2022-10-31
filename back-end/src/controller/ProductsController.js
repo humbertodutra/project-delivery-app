@@ -7,6 +7,12 @@ const productController = {
 
     res.status(200).json(result);
   },
+  /** @type {import('express').RequestHandler} */
+  async listOneProductController(req, res) {
+    const result = await productService.listOneProductService(req.params.id);
+
+    res.status(200).json(result);
+  },
 };
 
 module.exports = productController;

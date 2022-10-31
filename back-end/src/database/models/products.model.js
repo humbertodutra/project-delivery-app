@@ -14,12 +14,5 @@ module.exports = (sequelize, DataTypes) => {
       underscored: true,
     });
 
-  products.associate = (models) => {
-    products.hasMany(models.salesProducts,
-      {
-        foreignKey: 'product_id', as: 'sales_product'
-      });
-  };
-
   return products;
 };
