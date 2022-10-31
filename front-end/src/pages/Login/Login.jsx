@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
@@ -86,6 +88,7 @@ function Login() {
           className="input-button"
           variant="contained"
           type="button"
+          onClick={ () => sendToBackend() }
           data-testid="common_login__button-login"
         >
           Entrar
