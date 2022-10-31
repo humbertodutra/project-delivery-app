@@ -1,19 +1,33 @@
-const userModel = require('../database/models/user.model');
+const { users } = require('../database/models');
 const jwtService = require('../middlewares/jwtService');
+const md5 = require('md5');
+const { Op } = require('sequelize');
 
 const userService = {
-  createUser: async (name, email, password) => {
-    const data = await userModel.findOne({ where: { email } });
+  createUser: async ({ name, email, password }) => {
+    const data = await users.findOne({ where: { [Op.or]: [{ email }, { name }] } });
     if (data) {
       const error = new Error('User Already Registered');
       error.name = 'ConflitError';
       throw error;
     }
-    await userModel.create({ name, email, password });
-    const tokenParams = { name, email };
-    const token = jwtService.createToken(tokenParams);
-    return token;
+    const crypt = md5(password);
+    const createUser = await users.create({ name, email, password: crypt, role: 'customer' });
+    return createUser;
   },
+
+  makeLogin: async ({ email, password}) => {
+    const user = await users.findOne({ where: { email } });
+    if (!user) {
+      const error = new Error('User not found');
+      error.name = 'NotExist';
+      throw error;
+    }
+    const verifyPassword = md5(password) === user.password;
+    if (!verifyPassword) throw new Error('Incorrect password');
+    const token = jwtService.createToken(email);
+    return token;
+  }
 };
 
 module.exports = userService;

@@ -5,7 +5,6 @@ const typeErrors = {
   ConflitError: 409,
   NotFoundToken: 401,
   NotExist: 404,
-  CategoryNotFound: 400,
 };
 
 module.exports = typeErrors;
