@@ -1,17 +1,48 @@
-import { Button, TextField } from '@mui/material';
 import { useState } from 'react';
+import { Button, TextField } from '@mui/material';
+
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
+
+import registerSchema from '../../validations/register';
+
 import './Register.scss';
 
 function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [passed, setPassed] = useState({ name: false, email: false, password: false });
+
+  const validator = (newForm) => {
+    const valReturn = registerSchema.safeParse(newForm);
+
+    if (valReturn.success) {
+      setPassed({ name: true, email: true, password: true });
+      setIsError(false);
+      return;
+    }
+    const { error: { issues } } = valReturn;
+    const errorMsg = [];
+
+    issues.forEach((issue) => {
+      errorMsg.push(issue.message);
+      setPassed({ ...passed, [issue.path[0]]: false });
+    });
+
+    setIsError(true);
+    setError(errorMsg.join(' e '));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     const newForm = { ...form, [name]: value };
-    console.log(newForm);
     setForm(newForm);
+
+    if (value) return validator(newForm);
+
+    setIsError(false);
+    setPassed({ ...passed, [name]: false });
   };
 
   return (
@@ -63,11 +94,21 @@ function Register() {
           placeholder="******"
         />
         <Button
-          variant="contained"
           className="input-button"
+          variant="contained"
+          data-testid="common_register__button-register"
         >
           Cadastrar
         </Button>
+      </div>
+
+      <div>
+        <p
+          data-testid="common_register__element-invalid_register"
+          style={ { display: isError ? 'block' : 'none' } }
+        >
+          { error }
+        </p>
       </div>
     </div>
   );
