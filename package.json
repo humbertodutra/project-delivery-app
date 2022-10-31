@@ -55,6 +55,7 @@
     }
   },
   "dependencies": {
-    "front-end-validation": "^1.2.2"
+    "front-end-validation": "^1.2.2",
+    "zod": "^3.19.1"
   }
 }

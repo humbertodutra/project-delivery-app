@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { validate } from 'front-end-validation';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
+
+import loginSchema from '../../validations/login';
 
 import './Login.scss';
 
@@ -14,46 +15,34 @@ function Login() {
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ email: false, password: false });
 
-  const emailVal = (value) => ({
-    email: {
-      value,
-      rules: {
-        required: true,
-        email: true,
-      },
-    },
-  });
+  const validator = (newForm) => {
+    const valReturn = loginSchema.safeParse(newForm);
+    console.log(valReturn);
 
-  const passwordVal = (value) => ({
-    password: {
-      value,
-      rules: {
-        required: true,
-        min: 6,
-      },
-    },
-  });
+    if (valReturn.success) {
+      setPassed({ email: true, password: true });
+      setIsError(false);
+      return;
+    }
 
-  const validator = (type, value) => {
-    const validation = type === 'email' ? emailVal(value) : passwordVal(value);
+    const { error: { issues } } = valReturn;
+    const errorMsg = [];
 
-    validate(validation)
-      .then(() => {
-        setIsError(false);
-        setPassed({ ...passed, [type]: true });
-      })
-      .catch((err) => {
-        setIsError(true);
-        setPassed({ ...passed, [type]: false });
-        setError(err.errors[type][0]);
-      });
+    issues.forEach((issue) => {
+      errorMsg.push(issue.message);
+      setPassed({ ...passed, [issue.path[0]]: false });
+    });
+
+    setIsError(true);
+    setError(errorMsg.join(' e '));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const newForm = { ...form, [name]: value };
 
-    if (value) return validator(name, value);
+    setForm(newForm);
+    if (value) return validator(newForm);
 
     setIsError(false);
     setPassed({ ...passed, [name]: false });
@@ -112,12 +101,14 @@ function Login() {
         </Button>
       </div>
 
-      <p
-        data-testid="common_login__element-invalid-email"
-        style={ { display: isError ? 'block' : 'none' } }
-      >
-        { error }
-      </p>
+      <div className="app__login-error">
+        <p
+          data-testid="common_login__element-invalid-email"
+          style={ { display: isError ? 'block' : 'none' } }
+        >
+          { error }
+        </p>
+      </div>
     </div>
   );
 }
