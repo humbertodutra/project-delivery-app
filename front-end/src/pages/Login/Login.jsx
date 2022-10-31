@@ -3,8 +3,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import { validate } from 'front-end-validation';
+import { z } from 'zod';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
+
+import loginSchema from '../../validations/login';
 
 import './Login.scss';
 
@@ -14,46 +17,16 @@ function Login() {
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ email: false, password: false });
 
-  const emailVal = (value) => ({
-    email: {
-      value,
-      rules: {
-        required: true,
-        email: true,
-      },
-    },
-  });
-
-  const passwordVal = (value) => ({
-    password: {
-      value,
-      rules: {
-        required: true,
-        min: 6,
-      },
-    },
-  });
-
-  const validator = (type, value) => {
-    const validation = type === 'email' ? emailVal(value) : passwordVal(value);
-
-    validate(validation)
-      .then(() => {
-        setIsError(false);
-        setPassed({ ...passed, [type]: true });
-      })
-      .catch((err) => {
-        setIsError(true);
-        setPassed({ ...passed, [type]: false });
-        setError(err.errors[type][0]);
-      });
+  const validator = () => {
+    const myReturn = loginSchema.safeParse(form);
+    console.log(myReturn);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
 
-    if (value) return validator(name, value);
+    if (value) return validator();
 
     setIsError(false);
     setPassed({ ...passed, [name]: false });
