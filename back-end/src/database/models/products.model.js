@@ -12,15 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       timestamps: false,
       underscored: true,
-      modelName: 'products',
     });
-
-  products.associate = (models) => {
-    products.hasMany(models.salesProduct,
-      {
-        foreignKey: 'product_id', as: 'sales_product'
-      });
-  };
 
   return products;
 };
