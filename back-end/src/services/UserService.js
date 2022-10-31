@@ -1,7 +1,7 @@
-const { users } = require('../database/models');
-const jwtService = require('../middlewares/jwtService');
 const md5 = require('md5');
 const { Op } = require('sequelize');
+const { users } = require('../database/models');
+const jwtService = require('../middlewares/jwtService');
 
 const userService = {
   createUser: async ({ name, email, password }) => {
@@ -16,7 +16,7 @@ const userService = {
     return createUser;
   },
 
-  makeLogin: async ({ email, password}) => {
+  makeLogin: async ({ email, password }) => {
     const user = await users.findOne({ where: { email } });
     if (!user) {
       const error = new Error('User not found');
@@ -27,7 +27,7 @@ const userService = {
     if (!verifyPassword) throw new Error('Incorrect password');
     const token = jwtService.createToken(email);
     return token;
-  }
+  },
 };
 
 module.exports = userService;

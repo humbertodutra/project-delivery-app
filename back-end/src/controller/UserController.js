@@ -9,9 +9,9 @@ const userController = {
     res.status(200).json(data);
   },
   makeLogin: async (req, res) => {
-    const login = await userService.makeLogin( req.body);
+    const login = await userService.makeLogin(req.body);
     return res.status(200).json(login);
-  }
-}
+  },
+};
 
 module.exports = userController;
