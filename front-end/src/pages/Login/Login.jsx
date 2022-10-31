@@ -17,16 +17,34 @@ function Login() {
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ email: false, password: false });
 
-  const validator = () => {
-    const myReturn = loginSchema.safeParse(form);
-    console.log(myReturn);
+  const validator = (newForm) => {
+    const valReturn = loginSchema.safeParse(newForm);
+    console.log(valReturn);
+
+    if (valReturn.success) {
+      setPassed({ email: true, password: true });
+      setIsError(false);
+      return;
+    }
+
+    const { error: { issues } } = valReturn;
+    const errorMsg = [];
+
+    issues.forEach((issue) => {
+      errorMsg.push(issue.message);
+      setPassed({ ...passed, [issue.path[0]]: false });
+    });
+
+    setIsError(true);
+    setError(errorMsg.join(' e '));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const newForm = { ...form, [name]: value };
 
-    if (value) return validator();
+    setForm(newForm);
+    if (value) return validator(newForm);
 
     setIsError(false);
     setPassed({ ...passed, [name]: false });
@@ -85,12 +103,14 @@ function Login() {
         </Button>
       </div>
 
-      <p
-        data-testid="common_login__element-invalid-email"
-        style={ { display: isError ? 'block' : 'none' } }
-      >
-        { error }
-      </p>
+      <div className="app__login-error">
+        <p
+          data-testid="common_login__element-invalid-email"
+          style={ { display: isError ? 'block' : 'none' } }
+        >
+          { error }
+        </p>
+      </div>
     </div>
   );
 }
