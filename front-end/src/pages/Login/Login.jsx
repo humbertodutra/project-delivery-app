@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { validate } from 'front-end-validation';
-import { z } from 'zod';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
 
