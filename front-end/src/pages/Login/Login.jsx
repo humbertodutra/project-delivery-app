@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
 
@@ -14,6 +15,7 @@ function Login() {
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ email: false, password: false });
+  const navigate = useNavigate();
 
   const validator = (newForm) => {
     const valReturn = loginSchema.safeParse(newForm);
@@ -96,6 +98,7 @@ function Login() {
           variant="outlined"
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
         >
           Ainda não tem conta?
         </Button>
