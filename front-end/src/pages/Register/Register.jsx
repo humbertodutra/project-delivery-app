@@ -95,6 +95,7 @@ function Register() {
         />
         <Button
           className="input-button"
+          disabled={ !passed.name || !passed.email || !passed.password }
           variant="contained"
           data-testid="common_register__button-register"
         >
