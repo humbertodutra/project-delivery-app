@@ -23,21 +23,21 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'salesProducts',
     });
 
-  // salesProducts.associate = (models) => {
-  //   models.sales.belongsTo(models.products,
-  //     {
-  //       as: 'products',
-  //       through: salesProducts,
-  //       foreignKey: 'product_id',
-  //       otherKey: 'sale_id'
-  //     });
-  //   models.products.belongsTo(models.sales, {
-  //     as: 'sales',
-  //     through: salesProducts,
-  //     foreignKey: 'sale_id',
-  //     otherKey: 'product_id'
-  //   });
-  // };
+  salesProducts.associate = (models) => {
+    models.sales.belongsTo(models.products,
+      {
+        as: 'products',
+        through: salesProducts,
+        foreignKey: 'product_id',
+        otherKey: 'sale_id'
+      });
+    models.products.belongsTo(models.sales, {
+      as: 'sales',
+      through: salesProducts,
+      foreignKey: 'sale_id',
+      otherKey: 'product_id'
+    });
+  };
 
   return salesProducts;
 };
