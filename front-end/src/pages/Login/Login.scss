@@ -1,0 +1,66 @@
+@import '../../styles/vars.scss';
+@import '../../styles/globals.scss';
+
+.box-shadow {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.app__login {
+  flex-direction: column;
+  width: 100%;
+
+  .app__login-logo {
+    width: 220px;
+    margin-bottom: 2rem;
+  }
+
+  .app__login-card {
+    margin: 0 20px;
+    padding: 1.5rem 1rem;
+    border-radius: 1rem;
+    width: 300px;
+    gap: .7rem;
+
+    flex-direction: column;
+
+    background: $white-color;
+
+    h1 {
+      color: $high-black-color;
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+
+    .input-title {
+      margin-bottom: 0.2rem;
+      font-size: 1rem;
+      color: $light-black-color;
+    }
+
+    .input-field {
+      width: 80%;
+
+      &:last-of-type {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .input-button {
+      width: 80%;
+      font-weight: 600;
+      font-family: $font-base;
+
+      &:first-of-type {
+        color: $white-color;
+      }
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 80%;
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

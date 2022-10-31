@@ -53,5 +53,8 @@
       "__TESTDESC__": true,
       "__TESTFILE__": true
     }
+  },
+  "dependencies": {
+    "front-end-validation": "^1.2.2"
   }
 }
