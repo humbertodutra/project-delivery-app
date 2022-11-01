@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
-import { Login, Products, Customer } from './pages';
+import { Login, Register, Products, Customer } from './pages';
 
 // Feito pelo G4
 
