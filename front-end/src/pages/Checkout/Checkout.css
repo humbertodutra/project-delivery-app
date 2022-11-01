@@ -1,0 +1,23 @@
+.order_page {
+  background: white;
+  height: 1080px;
+  position: relative;
+  width: 1920px;
+}
+
+.order_list {
+  background: #fbfffe;
+  bottom: 0.11%;
+  left: 0.06%;
+  position: absolute;
+  right: 0.06%;
+  top: 8.6%;
+}
+
+.order_container {
+  height: 880px;
+  left: 140px;
+  position: absolute;
+  top: 143px;
+  width: 1640px;
+}

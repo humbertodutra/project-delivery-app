@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import CartProvider from './context/provider';
 
 const theme = createTheme({
   palette: {
@@ -20,7 +21,9 @@ const theme = createTheme({
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={ theme }>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
