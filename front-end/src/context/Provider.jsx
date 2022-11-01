@@ -14,11 +14,15 @@ export function Provider({ children }) {
   const memorizedContext = useMemo(() => ({
     user: {
       name,
+      setName,
       email,
+      setEmail,
       role,
+      setRole,
       token,
+      setToken,
     },
-  }), [name, email, token, role]);
+  }), [name, setName, email, setEmail, token, setToken, role, setRole]);
 
   return (
     <HomeerContext.Provider value={ memorizedContext }>

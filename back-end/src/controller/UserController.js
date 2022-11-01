@@ -14,7 +14,8 @@ const userController = {
     return res.status(200).json({ token: login });
   },
   listOneUserController: async (req, res) => {
-    const { token } = req.body;
+    const token = req.headers.authorization;
+    
     const decoding = decodeToken(token);
     const result = await userService.listOneUserService(decoding);
 
