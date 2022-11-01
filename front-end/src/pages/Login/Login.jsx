@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { HomeerContext } from '../../context/Provider';
 
 import Images from '../../constants/images';
+import Roles from '../../constants/roles';
 import AppWrap from '../../wrapper/AppWrap';
 
 import loginSchema from '../../validations/login';
@@ -60,6 +61,8 @@ function Login() {
     setName(name);
     setEmail(email);
     setRole(role);
+
+    navigate(Roles[role]);
   };
 
   const getToken = async (event) => {
@@ -69,11 +72,9 @@ function Login() {
       const { token } = await requestPost('/login', form);
 
       setHeaderToken(token);
-      loginUser(token);
-
       setToken(token);
 
-      navigate('/customer/products');
+      loginUser(token);
     } catch (err) {
       console.log(err);
 
