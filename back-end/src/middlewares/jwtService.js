@@ -1,9 +1,9 @@
-require('dotenv/config');
+// require('dotenv/config');
 const jwt = require('jsonwebtoken');
 
 const jwtService = {
   createToken: (data) => {
-    const token = jwt.sign(data, process.env.JWT_SECRET);
+    const token = jwt.sign(data, 'minhaSenhaSeguraJWT');
     return token;
   },
 };
