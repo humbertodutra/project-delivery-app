@@ -1,5 +1,5 @@
-@import './styles/vars.scss';
-@import './styles/globals.scss';
+@import "./styles/vars.scss";
+@import "./styles/globals.scss";
 
 .app {
   background-color: $primary-color;
@@ -85,5 +85,23 @@
 
   @media screen and (max-width: 450px) {
     font-size: 0.9rem;
+  }
+}
+
+.input-field {
+  width: 80%;
+
+  &:last-of-type {
+    margin-bottom: 1rem;
+  }
+}
+
+.input-button {
+  width: 80%;
+  font-weight: 600;
+  font-family: $font-base;
+
+  &:first-of-type {
+    color: $white-color;
   }
 }

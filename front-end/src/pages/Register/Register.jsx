@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { useState } from 'react';
+import { Button, TextField } from '@mui/material';
 
-import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
 
-import loginSchema from '../../validations/login';
+import registerSchema from '../../validations/register';
 
-import './Login.scss';
+import './Register.scss';
 
-function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
+function Register() {
+  const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
-  const [passed, setPassed] = useState({ email: false, password: false });
-  const navigate = useNavigate();
+  const [passed, setPassed] = useState({ name: false, email: false, password: false });
 
   const validator = (newForm) => {
-    const valReturn = loginSchema.safeParse(newForm);
-    console.log(valReturn);
+    const valReturn = registerSchema.safeParse(newForm);
 
     if (valReturn.success) {
-      setPassed({ email: true, password: true });
+      setPassed({ name: true, email: true, password: true });
       setIsError(false);
       return;
     }
-
     const { error: { issues } } = valReturn;
     const errorMsg = [];
 
@@ -51,14 +46,29 @@ function Login() {
   };
 
   return (
-    <div className="app__flex app__login">
-      <img src={ Images.Logo } alt="logo" className="app__login-logo" />
+    <div className="app__register">
+      <img src={ Images.Logo } alt="logo" className="app__register-logo" />
 
-      <div className="app__login-card app__flex box-shadow">
-        <h1>Bem vindo! 😎 </h1>
+      <div className="app__flex box-shadow app__register-card">
+
+        <h1>E ai novato! 🍺 </h1>
+
         <TextField
           inputProps={ {
-            'data-testid': 'common_login__input-email',
+            'data-testid': 'common_register__input-name',
+            name: 'name',
+            value: form.name,
+            onChange: handleChange,
+          } }
+          className="input-field"
+          color="primary"
+          label="Nome"
+          type="text"
+          placeholder="Ex: Manoel Souza"
+        />
+        <TextField
+          inputProps={ {
+            'data-testid': 'common_register__input-email',
             name: 'email',
             value: form.email,
             onChange: handleChange,
@@ -66,47 +76,35 @@ function Login() {
           className="input-field"
           color="primary"
           label="Email"
-          type="text"
+          type="email"
           placeholder="email@gmail.com"
         />
         <TextField
           inputProps={ {
-            'data-testid': 'common_login__input-password',
+            'data-testid': 'common_register__input-password',
             name: 'password',
             value: form.password,
             onChange: handleChange,
           } }
           className="input-field"
+          color="primary"
           label="Senha"
           type="password"
-          placeholder="********"
-          data-testid="common_login__input-password"
+          placeholder="******"
         />
         <Button
-          component="button"
-          disabled={ !passed.email || !passed.password }
           className="input-button"
+          disabled={ !passed.name || !passed.email || !passed.password }
           variant="contained"
-          type="button"
-          data-testid="common_login__button-login"
+          data-testid="common_register__button-register"
         >
-          Entrar
-        </Button>
-        <Button
-          component="button"
-          className="input-button"
-          variant="outlined"
-          type="button"
-          data-testid="common_login__button-register"
-          onClick={ () => navigate('/register') }
-        >
-          Ainda não tem conta?
+          Cadastrar
         </Button>
       </div>
 
       <div className="app__login-error">
         <p
-          data-testid="common_login__element-invalid-email"
+          data-testid="common_register__element-invalid_register"
           style={ { display: isError ? 'block' : 'none' } }
         >
           { error }
@@ -116,4 +114,4 @@ function Login() {
   );
 }
 
-export default AppWrap(Login, null, null, null);
+export default AppWrap(Register, null, null, null);
