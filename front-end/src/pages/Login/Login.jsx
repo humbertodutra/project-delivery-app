@@ -55,10 +55,10 @@ function Login() {
     try {
       const { token } = await requestPost('/login', form);
       setToken(token);
-    } catch (err) {
-      console.log(err.message);
+    } catch ({ response: { data: { message } } }) {
+      console.log(message);
       setIsError(true);
-      setError(err.message);
+      setError(message);
     }
   };
 

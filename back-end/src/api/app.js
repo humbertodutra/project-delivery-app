@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/products', productRoute);
-app.use(userRoute);
+app.use('/', userRoute);
 
 app.use(filterErrors);
 
