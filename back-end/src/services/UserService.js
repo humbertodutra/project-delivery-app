@@ -25,7 +25,7 @@ const userService = {
     }
     const verifyPassword = md5(password) === user.password;
     if (!verifyPassword) {
-      const error = new Error('Incorrect email or password')
+      const error = new Error('Incorrect email or password');
       error.name = 'NotExist';
       throw error;
     };
@@ -33,6 +33,6 @@ const userService = {
     const token = jwtService.createToken(email);
     return token;
   },
-};
+}
 
 module.exports = userService;
