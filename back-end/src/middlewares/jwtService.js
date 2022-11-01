@@ -6,6 +6,11 @@ const jwtService = {
     const token = jwt.sign(data, 'minhaSenhaSeguraJWT');
     return token;
   },
+
+  decodeToken: (token) => {
+    const email = jwt.decode(token, 'minhaSenhaSeguraJWT');
+    return email;
+  },
 };
 
 module.exports = jwtService;
