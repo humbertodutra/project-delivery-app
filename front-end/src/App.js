@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/register" element={ <Register /> } />
         <Route path="/customer">
           <Route index element={ <Customer /> } />
           <Route path="/customer/products" element={ <Products /> } />
