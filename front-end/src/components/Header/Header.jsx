@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Button } from '@mui/material';
 import { CgLogOut } from 'react-icons/cg';
 
 import Images from '../../constants/images';
+import { HomeerContext } from '../../context/Provider';
 
 import './Header.scss';
 
-const user = 'Usuário';
-
 function Header() {
+  const { user: { name } } = useContext(HomeerContext);
+
   return (
     <div className="app__flex app__header">
       <div className="app__header-logo">
@@ -32,7 +33,7 @@ function Header() {
       </div>
 
       <div className="app__flex app__header-user">
-        <p data-testid="customer_products__element-navbar-user-full-name">{user}</p>
+        <p data-testid="customer_products__element-navbar-user-full-name">{name}</p>
         <div
           role="button"
           data-testid="customer_products__element-navbar-link-logout"
