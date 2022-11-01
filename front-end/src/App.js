@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
 import { Login } from './pages';
@@ -12,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/customer/products" />
       </Routes>
     </Router>
   );

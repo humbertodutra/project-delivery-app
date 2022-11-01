@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
@@ -15,6 +16,7 @@ function Login() {
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ email: false, password: false });
+  const navigate = useNavigate();
 
   const validator = (newForm) => {
     const valReturn = loginSchema.safeParse(newForm);
@@ -55,6 +57,8 @@ function Login() {
     try {
       const { token } = await requestPost('/login', form);
       setToken(token);
+      console.log(token);
+      navigate('/customer/products');
     } catch ({ response: { data: { message } } }) {
       console.log(message);
       setIsError(true);
