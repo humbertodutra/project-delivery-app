@@ -28,11 +28,11 @@ const userService = {
       const error = new Error('Incorrect email or password');
       error.name = 'NotExist';
       throw error;
-    };
+    }
 
     const token = jwtService.createToken(email);
     return token;
   },
-}
+};
 
 module.exports = userService;
