@@ -15,7 +15,17 @@ import { requestPost, requestGet, setHeaderToken } from '../../utils/Resquest';
 import './Login.scss';
 
 function Login() {
-  const { user: { setName, setEmail, setRole, setToken } } = useContext(HomeerContext);
+  const {
+    user: {
+      setName,
+      setEmail,
+      setRole,
+      setToken,
+    },
+    login: {
+      setIsSignedIn,
+    },
+  } = useContext(HomeerContext);
 
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
@@ -62,6 +72,7 @@ function Login() {
     setEmail(email);
     setRole(role);
 
+    setIsSignedIn(true);
     navigate(Roles[role]);
   };
 

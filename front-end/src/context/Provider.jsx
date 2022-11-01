@@ -1,4 +1,4 @@
-import React, { useMemo, createContext } from 'react';
+import React, { useMemo, useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 
 import usePersistedState from '../hooks/usePersistentState';
@@ -10,6 +10,7 @@ export function Provider({ children }) {
   const [email, setEmail] = usePersistedState('email', 'Carregando!');
   const [role, setRole] = usePersistedState('role', null);
   const [token, setToken] = usePersistedState('token', null);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const memorizedContext = useMemo(() => ({
     user: {
@@ -22,7 +23,22 @@ export function Provider({ children }) {
       token,
       setToken,
     },
-  }), [name, setName, email, setEmail, token, setToken, role, setRole]);
+    login: {
+      isSignedIn,
+      setIsSignedIn,
+    },
+  }), [
+    name,
+    setName,
+    email,
+    setEmail,
+    token,
+    setToken,
+    role,
+    setRole,
+    isSignedIn,
+    setIsSignedIn,
+  ]);
 
   return (
     <HomeerContext.Provider value={ memorizedContext }>
