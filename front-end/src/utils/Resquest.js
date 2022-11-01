@@ -4,8 +4,6 @@ const api = axios.create({
   baseURL: 'http://localhost:3001',
 });
 
-// Funções pra fazer o que a gente quer
-
 export const setToken = (token) => {
   api.defaults.headers.common.Authorization = token;
 };
