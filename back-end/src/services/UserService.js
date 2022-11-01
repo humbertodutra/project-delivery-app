@@ -19,12 +19,17 @@ const userService = {
   makeLogin: async ({ email, password }) => {
     const user = await users.findOne({ where: { email } });
     if (!user) {
-      const error = new Error('User not found');
+      const error = new Error('Incorrect email or password');
       error.name = 'NotExist';
       throw error;
     }
     const verifyPassword = md5(password) === user.password;
-    if (!verifyPassword) throw new Error('Incorrect password');
+    if (!verifyPassword) {
+      const error = new Error('Incorrect email or password');
+      error.name = 'NotExist';
+      throw error;
+    }
+
     const token = jwtService.createToken(email);
     return token;
   },
