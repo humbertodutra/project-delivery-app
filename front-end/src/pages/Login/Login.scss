@@ -31,30 +31,6 @@
       margin-bottom: 1rem;
     }
 
-    .input-title {
-      margin-bottom: 0.2rem;
-      font-size: 1rem;
-      color: $light-black-color;
-    }
-
-    // .input-field {
-    //   width: 80%;
-
-    //   &:last-of-type {
-    //     margin-bottom: 1rem;
-    //   }
-    // }
-
-    // .input-button {
-    //   width: 80%;
-    //   font-weight: 600;
-    //   font-family: $font-base;
-
-    //   &:first-of-type {
-    //     color: $white-color;
-    //   }
-    // }
-
     @media screen and (max-width: 400px) {
       width: 80%;
 

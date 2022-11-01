@@ -55,7 +55,7 @@ function Login() {
       <img src={ Images.Logo } alt="logo" className="app__login-logo" />
 
       <div className="app__login-card app__flex box-shadow">
-        <h1>Bem vindo! 🙂</h1>
+        <h1>Bem vindo! 😎 </h1>
         <TextField
           inputProps={ {
             'data-testid': 'common_login__input-email',

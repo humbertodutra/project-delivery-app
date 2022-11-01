@@ -5,7 +5,9 @@ const SEIS = 6;
 
 const registerSchema = z.object({
   name: z.string({
-    required_error: 'Nome deve conter até 12 caracteres' }).min(SEIS).max(DOZE),
+    required_error: 'Nome deve conter até 12 caracteres' }).min(DOZE, {
+    message: 'Nome muito curto',
+  }),
   email: z.string().email({
     message: 'Email inválido',
   }),

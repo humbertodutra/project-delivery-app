@@ -37,8 +37,8 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     const newForm = { ...form, [name]: value };
-    setForm(newForm);
 
+    setForm(newForm);
     if (value) return validator(newForm);
 
     setIsError(false);
@@ -47,12 +47,11 @@ function Register() {
 
   return (
     <div className="app__register">
-
       <img src={ Images.Logo } alt="logo" className="app__register-logo" />
 
-      <div className="app__register-card">
+      <div className="app__flex box-shadow app__register-card">
 
-        <h1 className="app__register-title">Cadastro</h1>
+        <h1>E ai novato! 🍺 </h1>
 
         <TextField
           inputProps={ {
@@ -103,7 +102,7 @@ function Register() {
         </Button>
       </div>
 
-      <div>
+      <div className="app__login-error">
         <p
           data-testid="common_register__element-invalid_register"
           style={ { display: isError ? 'block' : 'none' } }

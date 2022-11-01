@@ -1,30 +1,47 @@
 @import "../../styles/vars.scss";
 @import "../../styles/globals.scss";
 
+.box-shadow {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
 .app__register {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .app__register-logo {
-    width: 14rem;
+    width: 220px;
     margin-bottom: 2rem;
   }
 
   .app__register-card {
-    background-color: $white-color;
-    border-radius: 1rem;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.7rem;
     margin: 0 20px;
     padding: 1.5rem 1rem;
-    width: 20rem;
+    border-radius: 1rem;
+    width: 300px;
+    gap: 0.7rem;
 
-    .app__register-title {
-      text-align: center;
+    flex-direction: column;
+
+    background: $white-color;
+
+    h1 {
+      color: $high-black-color;
+      margin: 0;
+      margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 80%;
+
+      h1 {
+        font-size: 1.5rem;
+      }
     }
   }
+}
+
+.app__login-error {
+  min-height: 60px;
 }
