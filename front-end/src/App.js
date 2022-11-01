@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
-import { Login, Register } from './pages';
+import { Login, Register, Products, Customer } from './pages';
 
 // Feito pelo G4
 
@@ -13,6 +13,10 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
+        <Route path="/customer">
+          <Route index element={ <Customer /> } />
+          <Route path="/customer/products" element={ <Products /> } />
+        </Route>
       </Routes>
     </Router>
   );

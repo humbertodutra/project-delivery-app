@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
-import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
 
 import loginSchema from '../../validations/login';
+import { requestPost, setToken } from '../../utils/Resquest';
 
 import './Login.scss';
 
@@ -50,6 +52,21 @@ function Login() {
     setPassed({ ...passed, [name]: false });
   };
 
+  const login = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { token } = await requestPost('/login', form);
+      setToken(token);
+      console.log(token);
+      navigate('/customer/products');
+    } catch ({ response: { data: { message } } }) {
+      console.log(message);
+      setIsError(true);
+      setError(message);
+    }
+  };
+
   return (
     <div className="app__flex app__login">
       <img src={ Images.Logo } alt="logo" className="app__login-logo" />
@@ -89,6 +106,7 @@ function Login() {
           variant="contained"
           type="button"
           data-testid="common_login__button-login"
+          onClick={ (event) => login(event) }
         >
           Entrar
         </Button>
@@ -109,7 +127,7 @@ function Login() {
           data-testid="common_login__element-invalid-email"
           style={ { display: isError ? 'block' : 'none' } }
         >
-          { error }
+          {error}
         </p>
       </div>
     </div>

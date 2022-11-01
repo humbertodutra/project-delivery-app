@@ -1,0 +1,97 @@
+@import '../../styles/vars.scss';
+@import '../../styles/globals.scss';
+
+.app__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  padding: 0.5rem 2rem;
+  background: $white-color;
+  border-top: 1px solid $border-pallet-color;
+
+  p {
+    font-size: 0.8rem;
+    font-family: 'Heebo', sans-serif;
+    color: $high-black-color;
+
+    a {
+      color: $secondary-color;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        color: $mars-color;
+        text-decoration: underline;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+
+    p {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+  }
+}
+
+.app__footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  a {
+    .icon {
+      width: 30px;
+      height: 30px;
+
+      border-radius: 50%;
+      color: $high-black-color;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+  .privacy-and-terms {
+    bottom: 1.2rem;
+    display: flex;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.8rem;
+    gap: 0.5rem;
+
+    margin-right: 45px;
+  
+    a {
+      color: $secondary-color;
+      text-decoration: none;
+      font-weight: 500;
+  
+      &:hover {
+        color: $mars-color;
+        text-decoration: underline;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-direction: column;
+
+    .privacy-and-terms {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+
+    a {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
