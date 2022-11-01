@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
 
@@ -71,7 +72,7 @@ function Login() {
       <img src={ Images.Logo } alt="logo" className="app__login-logo" />
 
       <div className="app__login-card app__flex box-shadow">
-        <h1>Bem vindo! 🙂</h1>
+        <h1>Bem vindo! 😎 </h1>
         <TextField
           inputProps={ {
             'data-testid': 'common_login__input-email',
@@ -115,6 +116,7 @@ function Login() {
           variant="outlined"
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
         >
           Ainda não tem conta?
         </Button>

@@ -5,16 +5,17 @@
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 
-.app__login {
+.app__register {
+  display: flex;
   flex-direction: column;
-  width: 100%;
+  align-items: center;
 
-  .app__login-logo {
+  .app__register-logo {
     width: 220px;
     margin-bottom: 2rem;
   }
 
-  .app__login-card {
+  .app__register-card {
     margin: 0 20px;
     padding: 1.5rem 1rem;
     border-radius: 1rem;

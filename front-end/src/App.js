@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
-import { Login } from './pages';
+import { Login, Register } from './pages';
 
 // Feito pelo G4
 
@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/customer/products" />
+        <Route path="/register" element={ <Register /> } />
       </Routes>
     </Router>
   );
