@@ -8,7 +8,12 @@ import React from 'react';
  * @param {React.Component} Footer [Opcional] - O componente que será usado como footer
  * @param {string} ClassNames [Opcional] - Classes CSS que serão adicionadas ao componente, por padrão serão 'app__wrapper app__flex'
  */
-const AppWrap = (Component, Header, Footer, classNames) => function HOC() {
+const AppWrap = (
+  Component,
+  Header = null,
+  Footer = null,
+  classNames = null,
+) => function HOC() {
   return (
     <>
       {Header && <Header />}

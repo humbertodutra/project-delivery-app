@@ -1,0 +1,47 @@
+@import '../../styles/vars.scss';
+@import '../../styles/globals.scss';
+
+.app__header {
+  justify-content: space-between;
+  padding: .5rem 1rem;
+
+  background: $white-color;
+  border-bottom: 1px solid $border-pallet-color;
+
+  .app__header-logo {
+    img {
+      width: 100px;
+    }
+  }
+
+  .app__header-nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem
+  }
+
+  .app__header-user {
+    gap: .5rem;
+
+    .app__header-user-logout {
+      background-color: $primary-color;
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+
+      transition: all .2s ease-in-out;
+
+      svg {
+        color: $white-color;
+        font-weight: 600;
+        font-family: $font-base;
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background-color: $secondary-color;
+      }
+    }
+  }
+}
