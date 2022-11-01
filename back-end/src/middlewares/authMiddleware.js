@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     throw error;
   }
   try {
-    const decoded = jwt.verify(authorization, process.env.JWT_SECRET);
+    const decoded = jwt.verify(authorization, 'minhaSenhaSeguraJWT');
     req.userData = decoded;
     next();
   } catch (err) {

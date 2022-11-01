@@ -15,7 +15,6 @@ const userController = {
   },
   listOneUserController: async (req, res) => {
     const token = req.headers.authorization;
-    
     const decoding = decodeToken(token);
     const result = await userService.listOneUserService(decoding);
 
