@@ -52,7 +52,7 @@ function Login() {
     setPassed({ ...passed, [name]: false });
   };
 
-  const login = async (event) => {
+  const getToken = async (event) => {
     event.preventDefault();
 
     try {
@@ -65,6 +65,10 @@ function Login() {
       setIsError(true);
       setError(message);
     }
+  };
+
+  const loginUser = async () => {
+
   };
 
   return (
@@ -106,7 +110,7 @@ function Login() {
           variant="contained"
           type="button"
           data-testid="common_login__button-login"
-          onClick={ (event) => login(event) }
+          onClick={ (event) => getToken(event) }
         >
           Entrar
         </Button>
