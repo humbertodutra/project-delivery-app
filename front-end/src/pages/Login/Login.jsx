@@ -66,8 +66,8 @@ function Login() {
     setPassed({ ...passed, [name]: false });
   };
 
-  const loginUser = async (token) => {
-    const { name, email, role } = await requestGet('/user', { token });
+  const loginUser = async () => {
+    const { name, email, role } = await requestGet('/user');
     setName(name);
     setEmail(email);
     setRole(role);
@@ -87,13 +87,15 @@ function Login() {
 
       loginUser(token);
     } catch (err) {
-      console.log(err);
-
       if (err.response) {
         const { response: { data: { message } } } = err;
         setError(message);
         setIsError(true);
       }
+
+      setError(err.message);
+      setIsError(true);
+      console.log(err);
     }
   };
 
