@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import './App.scss';
 import { Login, Register, Products, Customer } from './pages';
 
-// Feito pelo G4
+// Feito pelo G4 Rerun
 
 function App() {
   return (
