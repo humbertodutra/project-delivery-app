@@ -85,7 +85,7 @@ function Login() {
       setHeaderToken(token);
       setToken(token);
 
-      loginUser(token);
+      loginUser();
     } catch (err) {
       if (err.response) {
         const { response: { data: { message } } } = err;

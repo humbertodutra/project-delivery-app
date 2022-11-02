@@ -51,7 +51,6 @@ export function Provider({ children }) {
   useEffect(() => {
     if (token) {
       try {
-        console.log('TOKEN ESTÁ RODANDO!');
         setHeaderToken(token);
 
         requestGet('/user').then((resp) => {
@@ -60,7 +59,6 @@ export function Provider({ children }) {
           setRole(resp.role);
 
           setIsSignedIn(true);
-          console.log('LOADING FALSE');
 
           setLoading(false);
         });
@@ -69,6 +67,7 @@ export function Provider({ children }) {
         setIsSignedIn(false);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
