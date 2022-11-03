@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 
+import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import AppWrap from '../../wrapper/AppWrap';
 
@@ -13,6 +14,8 @@ function Register() {
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ name: false, email: false, password: false });
+
+  const navigate = useNavigate();
 
   const validator = (newForm) => {
     const valReturn = registerSchema.safeParse(newForm);
@@ -97,6 +100,7 @@ function Register() {
           disabled={ !passed.name || !passed.email || !passed.password }
           variant="contained"
           data-testid="common_register__button-register"
+          onClick={ () => navigate('/customer/products') }
         >
           Cadastrar
         </Button>

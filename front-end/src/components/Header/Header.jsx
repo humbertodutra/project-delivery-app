@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Button } from '@mui/material';
 import { CgLogOut } from 'react-icons/cg';
 
+import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import { HomeerContext } from '../../context/Provider';
 
@@ -10,6 +11,7 @@ import './Header.scss';
 
 function Header() {
   const { user: { name } } = useContext(HomeerContext);
+  const navigate = useNavigate();
 
   return (
     <div className="app__flex app__header">
@@ -21,12 +23,14 @@ function Header() {
         <Button
           data-testid="customer_products__element-navbar-link-products"
           variant="outlined"
+          onClick={ () => navigate('/customer/products') }
         >
           Produtos
         </Button>
         <Button
           data-testid="customer_products__element-navbar-link-orders"
           variant="outlined"
+          onClick={ () => navigate('/customer/requests') }
         >
           Meus Pedidos
         </Button>
