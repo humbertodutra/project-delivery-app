@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use('/products', productRoute);
 app.use('/', userRoute);
+app.get('/orders', (_req, res) => res.status(200).send('oi'));
 
 app.use(filterErrors);
 
