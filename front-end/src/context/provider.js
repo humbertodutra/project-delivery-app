@@ -1,56 +1,65 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import CartContext from './cart';
-import data from '../pages/Checkout/productsMock.json';
 
 function CartProvider({ children }) {
-  const [productsCart, setProductsCart] = useState(data);
+  const [productsCart, setProductsCart] = useState([]);
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  function addProducToCart(id) {
-    const copyProductsCart = [...productsCart];
+  // function addProducToCart(id) {
+  //   const copyProductsCart = [...productsCart];
 
-    const item = copyProductsCart.find((product) => product.id === id);
+  //   const item = copyProductsCart.find((product) => product.id === id);
 
-    if (!item) {
-      copyProductsCart.push({ id, quantidade: 1 });
-    } else {
-      item.quantidade += 1;
-    }
+  //   if (!item) {
+  //     copyProductsCart.push({ id, quantidade: 1 });
+  //   } else {
+  //     item.quantidade += 1;
+  //   }
 
-    setProductsCart(copyProductsCart);
-  }
+  //   setProductsCart(copyProductsCart);
+  // }
 
-  function removeProductToCart(id) {
-    const copyProductsCart = [...productsCart];
+  // function removeProductToCart(id) {
+  //   const copyProductsCart = [...productsCart];
 
-    const item = copyProductsCart.find((product) => product.id === id);
+  //   const item = copyProductsCart.find((product) => product.id === id);
 
-    if (item && item.quantidade > 1) {
-      item.quantidade -= 1;
-      setProductsCart(copyProductsCart);
-    } else {
-      const arrayFiltered = copyProductsCart.filter(
-        (product) => product.id !== id,
-      );
-      setProductsCart(arrayFiltered);
-    }
-  }
+  //   if (item && item.quantidade > 1) {
+  //     item.quantidade -= 1;
+  //     setProductsCart(copyProductsCart);
+  //   } else {
+  //     const arrayFiltered = copyProductsCart.filter(
+  //       (product) => product.id !== id,
+  //     );
+  //     setProductsCart(arrayFiltered);
+  //   }
+  // }
 
-  function clearCart() {
-    setProductsCart([]);
-  }
+  // function clearCart() {
+  //   setProductsCart([]);
+  // }
+
+  const providerValue = useMemo(() => ({
+    setProductsCart,
+    productsCart,
+    loading,
+    setLoading,
+    user,
+    setUser,
+  }), [loading, productsCart, user, setProductsCart, setLoading, setUser]);
 
   return (
     <CartContext.Provider
-      value={ {
-        setProductsCart,
-        productsCart,
-        addProducToCart,
-        removeProductToCart,
-        clearCart } }
+      value={ providerValue }
     >
       {children}
     </CartContext.Provider>
   );
 }
 
+CartProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 export default CartProvider;
