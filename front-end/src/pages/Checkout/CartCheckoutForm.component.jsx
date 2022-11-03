@@ -42,12 +42,6 @@ export default function CartForm() {
     //   body,
     //   { headers: { Authorization: `${token}` } },
     // );
-    // if (orderId) {
-    //   history.push({
-    //     pathname: `/customer/orders/${orderId}`,
-    //     state: orderId,
-    //   });
-    // }
     console.log('oi');
   };
   return (
