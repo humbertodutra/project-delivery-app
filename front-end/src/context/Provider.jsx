@@ -13,6 +13,7 @@ export function Provider({ children }) {
   const [token, setToken] = usePersistedState('token', null);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [productsCart, setProductsCart] = useState([]);
 
   const memorizedContext = useMemo(() => ({
     user: {
@@ -33,6 +34,10 @@ export function Provider({ children }) {
       loading,
       setLoading,
     },
+    products: {
+      productsCart,
+      setProductsCart,
+    },
   }), [
     name,
     setName,
@@ -46,6 +51,8 @@ export function Provider({ children }) {
     setLoading,
     isSignedIn,
     setIsSignedIn,
+    productsCart,
+    setProductsCart,
   ]);
 
   useEffect(() => {

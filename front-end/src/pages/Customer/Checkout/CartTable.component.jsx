@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import CartContext from '../../context/cart';
+import { HomeerContext } from '../../../context/Provider';
 
 export default function CartTable({ products, dataTest, dataTestTotal }) {
-  const { setProductsCart } = useContext(CartContext);
+  const {
+    products: {
+      productsCart,
+      setProductsCart,
+    },
+  } = useContext(HomeerContext);
 
   const removeItem = (index) => {
     const productToRemove = products.filter((_, a) => a !== index);

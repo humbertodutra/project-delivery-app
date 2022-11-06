@@ -20,6 +20,15 @@ const userController = {
 
     res.status(200).json(result);
   },
+
+  getByRole: async (req, res, next) => {
+    const { role } = req.params;
+    const users = await userService.getByRole(role);
+    if (!users || users.length === 0) {
+      return next({ code: 404, message: 'Can\'t find users' });
+    }
+    return res.status(200).json(users);
+  },
 };
 
 module.exports = userController;

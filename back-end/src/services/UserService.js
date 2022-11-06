@@ -37,10 +37,24 @@ const userService = {
   listOneUserService: async (email) => {
     const result = await users.findOne({
       where: { email },
-      attributes: { exclude: ['password', 'id'] },
+      attributes: { exclude: ['password'] },
     });
 
     return result;
+  },
+
+  listOneUserServiceById: async (id) => {
+    const result = await users.findOne({
+      where: { id },
+      attributes: { exclude: ['password', 'email'] },
+    });
+
+    return result;
+  },
+
+  getByRole: async (role) => {
+    const usersByRole = await users.findAll({ where: { role } });
+    return usersByRole;
   },
 };
 
