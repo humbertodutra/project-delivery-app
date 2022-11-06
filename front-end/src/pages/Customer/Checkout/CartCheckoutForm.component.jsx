@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HomeerContext } from '../../../context/Provider';
-import { requestPost, requestGet, setHeaderToken } from '../../../utils/Resquest';
+import { requestPost, requestGet } from '../../../utils/Resquest';
 
 export default function CartForm() {
   const [user, setUser] = useState('');
@@ -13,7 +13,6 @@ export default function CartForm() {
 
   const { products: {
     productsCart,
-    setProductsCart,
   } } = useContext(HomeerContext);
 
   // const navigate = useNavigate();
