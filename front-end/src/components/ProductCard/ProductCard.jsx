@@ -12,13 +12,12 @@ function ProductCard({ id, name, price, urlImage }) {
       data-testid="product-card"
     >
 
-      <div className="app__productcard-price">
+      <div className="app__flex app__productcard-price">
+        <p>R$</p>
         <p
           data-testid={ `customer_products__element-card-price-${id}` }
         >
-          R$
-          {' '}
-          { price }
+          { price.replace('.', ',') }
         </p>
       </div>
 
