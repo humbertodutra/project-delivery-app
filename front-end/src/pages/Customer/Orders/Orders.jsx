@@ -1,9 +1,9 @@
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import OrderCard from '../../components/OrderCard/OrderCard';
-import AppWrap from '../../wrapper/AppWrap';
+import Footer from '../../../components/Footer/Footer';
+import Header from '../../../components/Header/Header';
+import OrderCard from '../../../components/OrderCard/OrderCard';
+import AppWrap from '../../../wrapper/AppWrap';
 
-function MyRequests() {
+function Orders() {
   const vendas = [
     {
       id: 1,
@@ -39,4 +39,4 @@ function MyRequests() {
   );
 }
 
-export default AppWrap(MyRequests, Header, Footer);
+export default AppWrap(Orders, Header, Footer);

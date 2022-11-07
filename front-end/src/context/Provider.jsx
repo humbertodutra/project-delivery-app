@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
-import React, { createContext, useEffect, useMemo, useState } from 'react';
 
 import usePersistedState from '../hooks/usePersistentState';
 import { requestGet, setHeaderToken } from '../utils/Resquest';

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { CgLogOut } from 'react-icons/cg';
 
-import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
 import { HomeerContext } from '../../context/Provider';
 
@@ -36,7 +35,7 @@ function Header() {
         <Button
           data-testid="customer_products__element-navbar-link-orders"
           variant="outlined"
-          onClick={ () => navigate('/customer/requests') }
+          onClick={ () => navigate('/customer/orders') }
         >
           Meus Pedidos
         </Button>
