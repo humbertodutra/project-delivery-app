@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Skol Lata 250ml",
+    "price": 2.20,
+    "url_image": "https://a-static.mlcdn.com.br/1500x1500/cerveja-skol-lata-caixa-com-12/beguettoperosso/ee0d30aa943811ec8eac4201ac185055/1220dfd6d5055c6cb2d1bea9ab53171d.jpeg",
+    "quantity": 1,
+    "id": 1,
+    "subTotal": 2.20
+  },
+  {
+    "name": "Heineken 600ml",
+    "price": 7.50,
+    "url_image": "https://supernossoio.vtexassets.com/arquivos/ids/220873/Cerveja-Heineken-Lata-473ml.jpg?v=637808132212300000",
+    "quantity": 2,
+    "id": 2,
+    "subTotal": 15.00
+  },
+  {
+    "name": "Antarctica Pilsen 300ml",
+    "price": 2.50,
+    "url_image": "https://santahelenacenter.com.br/wp-content/uploads/fotos-produtos/80839.jpg",
+    "quantity": 3,
+    "id": 3,
+    "subTotal": 7.50
+  },
+  {
+    "name": "Brahma 600ml",
+    "price": 7.50,
+    "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuYmBhkil8EdS8CHywsZEaedqxCQ7A2veEovofuruogg&s",
+    "quantity": 4,
+    "id": 4,
+    "subTotal": 30.00
+  } 
+]

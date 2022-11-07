@@ -15,6 +15,7 @@ export function Provider({ children }) {
   const [cart, setCart] = usePersistedState('cart', []);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [productsCart, setProductsCart] = useState([]);
 
   const logout = () => {
     setUser(undefined);
@@ -40,7 +41,11 @@ export function Provider({ children }) {
       cart,
       setCart,
     },
-  }), [user, setUser, isSignedIn, logout, loading, cart, setCart]);
+    products: {
+      productsCart,
+      setProductsCart,
+    },
+  }), [user, setUser, isSignedIn, logout, loading, cart, setCart, productsCart, setProductsCart]);
 
   useEffect(() => {
     if (user.token) {
