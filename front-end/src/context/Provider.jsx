@@ -60,14 +60,17 @@ export function Provider({ children }) {
 
           setIsSignedIn(true);
 
-          setLoading(false);
+          return setLoading(false);
         });
       } catch (error) {
         console.log(error);
-        setIsSignedIn(false);
+        return setIsSignedIn(false);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    setIsSignedIn(false);
+    setLoading(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

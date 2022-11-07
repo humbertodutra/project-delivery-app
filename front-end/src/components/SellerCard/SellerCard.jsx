@@ -13,6 +13,7 @@ function SellerCard({
     <div className="app__request-card">
       <div className="app__request-card-id">
         <span data-testid={ `seller_orders__element-order-id-${id}` }>
+          00
           {id}
         </span>
       </div>

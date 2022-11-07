@@ -1,5 +1,9 @@
 import React from 'react';
 import SellerCard from '../../../components/SellerCard/SellerCard';
+import Footer from '../../../components/Footer/Footer';
+import Header from '../../../components/Header/Header';
+
+import AppWrap from '../../../wrapper/AppWrap';
 
 function RequestsSeller() {
   const mockSales = [
@@ -37,4 +41,4 @@ function RequestsSeller() {
   );
 }
 
-export default RequestsSeller;
+export default AppWrap(RequestsSeller, Header, Footer);
