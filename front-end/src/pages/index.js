@@ -3,4 +3,4 @@ export { default as Home } from './Home/Home';
 export { default as Register } from './Register/Register';
 export { default as Customer } from './Customer/Customer';
 export { default as Products } from './Customer/Products/Products';
-export { default as MyRequests } from './MyRequests/myRequests';
+export { default as MyRequests } from './MyOrders/MyOrders';
