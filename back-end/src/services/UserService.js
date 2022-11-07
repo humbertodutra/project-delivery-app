@@ -33,6 +33,15 @@ const userService = {
     const token = jwtService.createToken(email);
     return token;
   },
+
+  listOneUserService: async (email) => {
+    const result = await users.findOne({
+      where: { email },
+      attributes: { exclude: ['password', 'id'] },
+    });
+
+    return result;
+  },
 };
 
 module.exports = userService;

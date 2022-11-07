@@ -7,6 +7,7 @@ const userRoute = require('../routes/UserRoute');
 
 const app = express();
 app.use(cors());
+app.use('/images', express.static('public'));
 app.use(express.json());
 
 app.use('/products', productRoute);

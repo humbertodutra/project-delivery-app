@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 import { CgLogOut } from 'react-icons/cg';
 
 import Images from '../../constants/images';
+import { HomeerContext } from '../../context/Provider';
 
 import './Header.scss';
 
-const user = 'Usuário';
-
 function Header() {
+  const { user: { name }, login: { logout } } = useContext(HomeerContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+    logout();
+  };
+
   return (
     <div className="app__flex app__header">
       <div className="app__header-logo">
@@ -32,14 +40,15 @@ function Header() {
       </div>
 
       <div className="app__flex app__header-user">
-        <p data-testid="customer_products__element-navbar-user-full-name">{user}</p>
-        <div
-          role="button"
+        <p data-testid="customer_products__element-navbar-user-full-name">{name}</p>
+        <button
+          type="button"
           data-testid="customer_products__element-navbar-link-logout"
           className="app__flex app__header-user-logout"
+          onClick={ handleLogout }
         >
           <CgLogOut />
-        </div>
+        </button>
       </div>
     </div>
   );

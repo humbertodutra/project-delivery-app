@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import { HomeerContext } from '../../context/Provider';
 
 import Images from '../../constants/images';
+import Roles from '../../constants/roles';
 import AppWrap from '../../wrapper/AppWrap';
 
 import loginSchema from '../../validations/login';
-import { requestPost, setToken } from '../../utils/Resquest';
+import { requestPost, requestGet, setHeaderToken } from '../../utils/Resquest';
 
 import './Login.scss';
 
 function Login() {
+  const {
+    user: {
+      currentUser,
+      setUser,
+    },
+    login: {
+      setIsSignedIn,
+    },
+  } = useContext(HomeerContext);
+
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
@@ -52,18 +64,32 @@ function Login() {
     setPassed({ ...passed, [name]: false });
   };
 
-  const login = async (event) => {
+  const loginUser = async (token) => {
+    const { name, email, role } = await requestGet('/user');
+    await setUser({ ...currentUser, name, email, role, token });
+
+    setIsSignedIn(true);
+    navigate(Roles[role]);
+  };
+
+  const getToken = async (event) => {
     event.preventDefault();
 
     try {
       const { token } = await requestPost('/login', form);
-      setToken(token);
-      console.log(token);
-      navigate('/customer/products');
-    } catch ({ response: { data: { message } } }) {
-      console.log(message);
+
+      setHeaderToken(token);
+      loginUser(token);
+    } catch (err) {
+      if (err.response) {
+        const { response: { data: { message } } } = err;
+        setError(message);
+        setIsError(true);
+      }
+
+      setError(err.message);
       setIsError(true);
-      setError(message);
+      console.log(err);
     }
   };
 
@@ -106,7 +132,7 @@ function Login() {
           variant="contained"
           type="button"
           data-testid="common_login__button-login"
-          onClick={ (event) => login(event) }
+          onClick={ (event) => getToken(event) }
         >
           Entrar
         </Button>

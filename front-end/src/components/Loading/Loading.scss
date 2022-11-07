@@ -1,0 +1,35 @@
+@import '../../styles/vars.scss';
+@import '../../styles/globals.scss';
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  height: 100vh;
+  width: 100%;
+
+  background-color: $white-color;
+
+  img {
+    width: 150px;
+    animation: flash 1s linear infinite;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
