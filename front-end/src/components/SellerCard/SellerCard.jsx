@@ -46,7 +46,7 @@ function SellerCard({
 
 SellerCard.propTypes = {
   deliveryAddress: PropTypes.string.isRequired,
-  deliveryNumber: PropTypes.number.isRequired,
+  deliveryNumber: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   saleDate: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
