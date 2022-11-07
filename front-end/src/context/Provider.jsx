@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 
 import usePersistedState from '../hooks/usePersistentState';
 import { requestGet, setHeaderToken } from '../utils/Resquest';
@@ -14,6 +15,7 @@ export function Provider({ children }) {
   const [cart, setCart] = usePersistedState('cart', []);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [productsCart, setProductsCart] = useState([]);
 
   const logout = () => {
     setUser(undefined);
@@ -39,7 +41,11 @@ export function Provider({ children }) {
       cart,
       setCart,
     },
-  }), [user, setUser, isSignedIn, logout, loading, cart, setCart]);
+    products: {
+      productsCart,
+      setProductsCart,
+    },
+  }), [user, setUser, isSignedIn, logout, loading, cart, setCart, productsCart, setProductsCart]);
 
   useEffect(() => {
     if (user.token) {

@@ -18,6 +18,7 @@ function Register() {
   const [isError, setIsError] = useState(false);
   const navigate = useNavigate();
   const [passed, setPassed] = useState({ name: false, email: false, password: false });
+  const navigate = useNavigate();
 
   const {
     user: {
@@ -83,7 +84,7 @@ function Register() {
         setError(message);
         setIsError(true);
       }
-
+      
       setError(err.message);
       setIsError(true);
       console.log(err);
