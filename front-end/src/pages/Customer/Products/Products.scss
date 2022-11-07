@@ -9,4 +9,44 @@
     justify-content: center;
     gap: 20px;
   }
+
+  .app__products-cart {
+    gap: 10px;
+    margin: 20px;
+    padding: 10px 15px;
+    border-radius: 10px;
+
+    transition: all 0.3s ease;
+
+    position: fixed;
+    bottom: 0;
+    right: 10px;
+
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+
+    h3 {
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin: 0;
+
+      pointer-events: none;
+      user-select: none;
+    }
+
+    p {
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 0;
+
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #fff;
+      border: 1px solid $primary-color;
+    }
+  }
 }

@@ -22,6 +22,7 @@
 
     background: #ffeeb6b4;
     border-radius: 10px;
+    box-shadow: 0 0 10px 0 rgba(211, 208, 162, 0.767);
 
     left: 0;
     margin: 10px;
@@ -81,13 +82,15 @@
         padding: 5px 10px;
         background-color: transparent;
         border: none;
-        width: 20px;
-
-        pointer-events: none;
+        width: 25px;
 
         text-align: center;
         font-size: 1.1rem;
         font-weight: 500;
+
+        &:focus {
+          outline: none;
+        }
       }
 
       p {

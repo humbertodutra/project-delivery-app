@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import IconButton from '@mui/material/IconButton';
 
 import './ProductCard.scss';
 
-function ProductCard({ id, name, price, urlImage }) {
+function ProductCard({ id, name, price, urlImage, defaultQnt, onInputChange }) {
+  const [quantity, setQuantity] = useState(defaultQnt);
+
+  const hadleChange = (event) => {
+    let { value } = event.target;
+    value = Number(value);
+    if (value < 0 || !value) value = 0;
+
+    console.log('Value no Change', value);
+
+    onInputChange({
+      id,
+      name,
+      price,
+      urlImage,
+      quantity: value,
+      subTotal: value * price,
+    });
+
+    setQuantity(value);
+  };
+
+  const handleIncrement = () => {
+    hadleChange({ target: { value: quantity + 1 } });
+  };
+
+  const handleDecrement = () => {
+    if (quantity === 0) return;
+    hadleChange({ target: { value: quantity - 1 } });
+  };
+
   return (
     <div
       className="app__flex box-shadow app__productcard"
@@ -39,6 +69,7 @@ function ProductCard({ id, name, price, urlImage }) {
         <div className="app__flex app__productcard-buttons">
           <IconButton
             data-testid={ `customer_products__button-card-rm-item-${id}` }
+            onClick={ handleDecrement }
             className="app__productcard-button"
           >
             <AiOutlineMinus />
@@ -48,11 +79,13 @@ function ProductCard({ id, name, price, urlImage }) {
             data-testid={ `customer_products__input-card-quantity-${id}` }
             className="app__productcard-quantity"
             type="text"
-            defaultValue={ 0 }
+            value={ quantity }
+            onChange={ hadleChange }
           />
 
           <IconButton
             data-testid={ `customer_products__button-card-add-item-${id}` }
+            onClick={ handleIncrement }
             className="app__productcard-button"
           >
             <AiOutlinePlus />
@@ -68,6 +101,8 @@ ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   urlImage: PropTypes.string.isRequired,
+  defaultQnt: PropTypes.number.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

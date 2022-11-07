@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,10 +11,10 @@ export function Provider({ children }) {
   const [user, setUser] = usePersistedState('user', {
     name: '', email: '', role: '', token: '',
   });
+  const [cart, setCart] = usePersistedState('cart', []);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const logout = () => {
     setUser(undefined);
     setIsSignedIn(false);
@@ -34,7 +35,11 @@ export function Provider({ children }) {
       loading,
       setLoading,
     },
-  }), [user, setUser, isSignedIn, logout, loading]);
+    cart: {
+      cart,
+      setCart,
+    },
+  }), [user, setUser, isSignedIn, logout, loading, cart, setCart]);
 
   useEffect(() => {
     if (user.token) {
@@ -55,7 +60,6 @@ export function Provider({ children }) {
 
     setIsSignedIn(false);
     setLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
