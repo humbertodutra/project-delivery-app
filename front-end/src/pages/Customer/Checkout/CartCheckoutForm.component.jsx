@@ -46,7 +46,7 @@ export default function CartForm() {
       '/customer/orders',
       body,
     );
-    console.log(id);
+    console.log(body);
 
     navigate(`/customer/orders/${id}`);
   };
