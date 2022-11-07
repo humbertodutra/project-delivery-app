@@ -5,8 +5,8 @@ const { decodeToken } = require('../middlewares/jwtService');
 const userController = {
   /** @type {import('express').RequestHandler} */
   createUser: async (req, res) => {
-    await validationBodyUser(req.body);
-    const data = await userService.createUser(req.body);
+    const { name, email, password } = await validationBodyUser(req.body);
+    const data = await userService.createUser({ name, email, password });
     res.status(201).json(data);
   },
   makeLogin: async (req, res) => {

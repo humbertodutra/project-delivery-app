@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
-import { Customer, Login, Products, Register, RequestsSeller } from './pages';
+import { Login, Register, Products, Customer, MyRequests, RequestsSeller } from './pages';
 
-// Feito pelo G4
+// Feito pelo G4 Rerun
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
         <Route path="/customer">
           <Route index element={ <Customer /> } />
           <Route path="/customer/products" element={ <Products /> } />
+          <Route path="/customer/orders" element={ <MyRequests /> } />
         </Route>
         <Route path="/seller" element={ <RequestsSeller /> } />
         <Route path="seller/orders/:id" />

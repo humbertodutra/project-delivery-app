@@ -1,21 +1,34 @@
 import { Button, TextField } from '@mui/material';
-import { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { HomeerContext } from '../../context/Provider';
 import Images from '../../constants/images';
-import { requestPost } from '../../utils/Resquest';
+import Roles from '../../constants/roles';
 import AppWrap from '../../wrapper/AppWrap';
 
 import registerSchema from '../../validations/register';
 
+import { requestPost, requestGet, setHeaderToken } from '../../utils/Resquest';
 import './Register.scss';
 
 function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
+  const navigate = useNavigate();
   const [passed, setPassed] = useState({ name: false, email: false, password: false });
   const navigate = useNavigate();
+
+  const {
+    user: {
+      currentUser,
+      setUser,
+    },
+    login: {
+      setIsSignedIn,
+    },
+  } = useContext(HomeerContext);
 
   const validator = (newForm) => {
     const valReturn = registerSchema.safeParse(newForm);
@@ -48,19 +61,33 @@ function Register() {
     setPassed({ ...passed, [name]: false });
   };
 
+  const loginUser = async (token) => {
+    const { name, email, role } = await requestGet('/user');
+    await setUser({ ...currentUser, name, email, role, token });
+
+    setIsSignedIn(true);
+    navigate(Roles[role]);
+  };
+
   const register = async (event) => {
     event.preventDefault();
 
     try {
-      const { name, email, password } = await requestPost('/register', form);
-      console.log(name, email, password);
-      navigate('/customer/products');
+      const { email, password } = await requestPost('/register', form);
+
+      const { token } = await requestPost('/login', { email, password });
+      setHeaderToken(token);
+      loginUser(token);
     } catch (err) {
       if (err.response) {
         const { response: { data: { message } } } = err;
         setError(message);
         setIsError(true);
       }
+      
+      setError(err.message);
+      setIsError(true);
+      console.log(err);
     }
   };
 

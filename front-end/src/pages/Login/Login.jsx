@@ -17,10 +17,8 @@ import './Login.scss';
 function Login() {
   const {
     user: {
-      setName,
-      setEmail,
-      setRole,
-      setToken,
+      currentUser,
+      setUser,
     },
     login: {
       setIsSignedIn,
@@ -66,11 +64,9 @@ function Login() {
     setPassed({ ...passed, [name]: false });
   };
 
-  const loginUser = async () => {
+  const loginUser = async (token) => {
     const { name, email, role } = await requestGet('/user');
-    setName(name);
-    setEmail(email);
-    setRole(role);
+    await setUser({ ...currentUser, name, email, role, token });
 
     setIsSignedIn(true);
     navigate(Roles[role]);
@@ -83,9 +79,7 @@ function Login() {
       const { token } = await requestPost('/login', form);
 
       setHeaderToken(token);
-      setToken(token);
-
-      loginUser();
+      loginUser(token);
     } catch (err) {
       if (err.response) {
         const { response: { data: { message } } } = err;

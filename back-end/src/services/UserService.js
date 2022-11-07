@@ -12,9 +12,8 @@ const userService = {
       throw error;
     }
     const crypt = md5(password);
-    jwtService.createToken(email);
-    const createUser = await users.create({ name, email, password: crypt, role: 'customer' });
-    return createUser;
+    await users.create({ name, email, password: crypt, role: 'customer' });
+    return { name, email, password };
   },
 
   makeLogin: async ({ email, password }) => {
