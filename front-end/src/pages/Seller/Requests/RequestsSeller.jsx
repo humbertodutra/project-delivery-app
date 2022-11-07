@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import SellerCard from '../../../components/SellerCard/SellerCard';
 import Footer from '../../../components/Footer/Footer';
 import Header from '../../../components/Header/Header';
@@ -6,6 +7,12 @@ import Header from '../../../components/Header/Header';
 import AppWrap from '../../../wrapper/AppWrap';
 
 function RequestsSeller() {
+  const navigate = useNavigate();
+
+  const navigateOrderDetails = (id) => {
+    navigate(`/seller/orders/${id}`);
+  };
+
   const mockSales = [
     {
       id: 1,
@@ -28,16 +35,30 @@ function RequestsSeller() {
       status: 'waiting the payment',
     },
   ];
+  console.log(mockSales);
   return (
-    mockSales.map((sale) => (<SellerCard
-      key={ sale.id }
-      id={ sale.id }
-      status={ sale.status }
-      totalPrice={ sale.total_price }
-      deliveryAddress={ sale.delivery_address }
-      deliveryNumber={ sale.delivery_number }
-      saleDate={ sale.sale_date }
-    />))
+    <>
+      {
+        mockSales.map((sale, index) => (
+          <div
+            key={ index }
+            onClick={ () => navigateOrderDetails(id) }
+            onKeyDown={ () => {} }
+            role="button"
+            tabIndex="0"
+          >
+            <SellerCard
+              id={ sale.id }
+              status={ sale.status }
+              totalPrice={ sale.total_price }
+              deliveryAddress={ sale.delivery_address }
+              deliveryNumber={ sale.delivery_number }
+              saleDate={ sale.sale_date }
+            />
+          </div>
+        ))
+      }
+    </>
   );
 }
 

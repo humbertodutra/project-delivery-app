@@ -1,5 +1,5 @@
-import React, { useMemo, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
 
 import usePersistedState from '../hooks/usePersistentState';
 import { requestGet, setHeaderToken } from '../utils/Resquest';
@@ -67,10 +67,7 @@ export function Provider({ children }) {
         return setIsSignedIn(false);
       }
     }
-
-    setIsSignedIn(false);
-    setLoading(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
