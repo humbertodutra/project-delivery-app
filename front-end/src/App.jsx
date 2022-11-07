@@ -13,7 +13,7 @@ import {
 } from './pages';
 import TestComponent from './pages/Customer/Checkout/test.component';
 
-// Feito pelo G4 Rerun
+// Feito pelo G4
 
 function App() {
   return (
