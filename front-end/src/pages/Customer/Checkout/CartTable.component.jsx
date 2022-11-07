@@ -5,7 +5,7 @@ import { HomeerContext } from '../../../context/Provider';
 export default function CartTable({ products, dataTest, dataTestTotal }) {
   const {
     products: {
-      productsCart,
+      // productsCart,
       setProductsCart,
     },
   } = useContext(HomeerContext);
