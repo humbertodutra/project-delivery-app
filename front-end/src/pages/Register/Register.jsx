@@ -1,7 +1,9 @@
-import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
 
+import { useNavigate } from 'react-router';
 import Images from '../../constants/images';
+import { requestPost } from '../../utils/Resquest';
 import AppWrap from '../../wrapper/AppWrap';
 
 import registerSchema from '../../validations/register';
@@ -13,6 +15,7 @@ function Register() {
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ name: false, email: false, password: false });
+  const navigate = useNavigate();
 
   const validator = (newForm) => {
     const valReturn = registerSchema.safeParse(newForm);
@@ -43,6 +46,22 @@ function Register() {
 
     setIsError(false);
     setPassed({ ...passed, [name]: false });
+  };
+
+  const register = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { name, email, password } = await requestPost('/register', form);
+      console.log(name, email, password);
+      navigate('/customer/products');
+    } catch (err) {
+      if (err.response) {
+        const { response: { data: { message } } } = err;
+        setError(message);
+        setIsError(true);
+      }
+    }
   };
 
   return (
@@ -97,6 +116,7 @@ function Register() {
           disabled={ !passed.name || !passed.email || !passed.password }
           variant="contained"
           data-testid="common_register__button-register"
+          onClick={ (event) => register(event) }
         >
           Cadastrar
         </Button>

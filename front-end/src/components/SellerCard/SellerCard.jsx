@@ -10,7 +10,9 @@ function SellerCard({
   deliveryNumber,
   saleDate }) {
   return (
-    <div className="app__request-card">
+    <div
+      className="app__request-card"
+    >
       <div className="app__request-card-id">
         <span data-testid={ `seller_orders__element-order-id-${id}` }>
           {id}
