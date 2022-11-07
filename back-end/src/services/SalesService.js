@@ -36,13 +36,9 @@ const saleService = {
                   model: products,
                   as: 'products',
                   attributes: ['name', 'price'],
-                  through: {
-                    as: 'quantity',
-                    attributes: ['quantity'],
-                  },
-              
-              },
-            ]});
+                  through: { as: 'quantity', attributes: ['quantity'] },
+                },
+            ] });
               console.log(saleById);
               return [saleById];
         },
