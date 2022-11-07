@@ -12,6 +12,8 @@ export default function usePersistedState(key, initialState) {
 
   useEffect(() => {
     try {
+      if (typeof state === 'undefined') return localStorage.removeItem(key);
+
       localStorage.setItem(key, JSON.stringify(state));
     } catch (error) {
       localStorage.setItem(key, JSON.stringify(initialState));

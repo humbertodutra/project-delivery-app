@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from '@mui/material';
 import { CgLogOut } from 'react-icons/cg';
@@ -10,8 +11,13 @@ import { HomeerContext } from '../../context/Provider';
 import './Header.scss';
 
 function Header() {
-  const { user: { name } } = useContext(HomeerContext);
+  const { user: { name }, login: { logout } } = useContext(HomeerContext);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    navigate('/');
+    logout();
+  };
 
   return (
     <div className="app__flex app__header">
@@ -38,13 +44,14 @@ function Header() {
 
       <div className="app__flex app__header-user">
         <p data-testid="customer_products__element-navbar-user-full-name">{name}</p>
-        <div
-          role="button"
+        <button
+          type="button"
           data-testid="customer_products__element-navbar-link-logout"
           className="app__flex app__header-user-logout"
+          onClick={ handleLogout }
         >
           <CgLogOut />
-        </div>
+        </button>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState, useEffect, createContext } from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,59 +8,48 @@ import { requestGet, setHeaderToken } from '../utils/Resquest';
 export const HomeerContext = createContext();
 
 export function Provider({ children }) {
-  const [name, setName] = usePersistedState('name', 'Carregando!');
-  const [email, setEmail] = usePersistedState('email', 'Carregando!');
-  const [role, setRole] = usePersistedState('role', null);
-  const [token, setToken] = usePersistedState('token', null);
+  const [user, setUser] = usePersistedState('user', {
+    name: '', email: '', role: '', token: '',
+  });
+  const [cart, setCart] = usePersistedState('cart', []);
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const logout = () => {
+    setUser(undefined);
+    setIsSignedIn(false);
+  };
+
   const memorizedContext = useMemo(() => ({
     user: {
-      name,
-      setName,
-      email,
-      setEmail,
-      role,
-      setRole,
-      token,
-      setToken,
+      currentUser: user,
+      ...user,
+      setUser,
     },
     login: {
       isSignedIn,
+      logout,
       setIsSignedIn,
     },
     loading: {
       loading,
       setLoading,
     },
-  }), [
-    name,
-    setName,
-    email,
-    setEmail,
-    token,
-    setToken,
-    role,
-    setRole,
-    loading,
-    setLoading,
-    isSignedIn,
-    setIsSignedIn,
-  ]);
+    cart: {
+      cart,
+      setCart,
+    },
+  }), [user, setUser, isSignedIn, logout, loading, cart, setCart]);
 
   useEffect(() => {
-    if (token) {
+    if (user.token) {
       try {
-        setHeaderToken(token);
+        setHeaderToken(user.token);
 
         requestGet('/user').then((resp) => {
-          setName(resp.name);
-          setEmail(resp.email);
-          setRole(resp.role);
+          setUser({ ...user, name: resp.name, email: resp.email, role: resp.role });
 
           setIsSignedIn(true);
-
           return setLoading(false);
         });
       } catch (error) {
@@ -70,7 +60,6 @@ export function Provider({ children }) {
 
     setIsSignedIn(false);
     setLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
