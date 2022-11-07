@@ -3,7 +3,7 @@ const { products, sales, salesProducts, users } = require('../database/models');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
-
+console.log('oi')
 const dateFormat = () => {
     const dateNow = new Date();
     const date = new Date(Date.UTC(
@@ -65,7 +65,7 @@ const saleService = {
         if (!saleToUpdate || saleToUpdate.length === 0) return null;
         await sales.update({ status }, { where: { id } });
         return saleToUpdate;
-},
+},  
     };
 
 module.exports = saleService;
