@@ -7,59 +7,44 @@ import { requestGet, setHeaderToken } from '../utils/Resquest';
 export const HomeerContext = createContext();
 
 export function Provider({ children }) {
-  const [name, setName] = usePersistedState('name', 'Carregando!');
-  const [email, setEmail] = usePersistedState('email', 'Carregando!');
-  const [role, setRole] = usePersistedState('role', null);
-  const [token, setToken] = usePersistedState('token', null);
+  const [user, setUser] = usePersistedState('user', {
+    name: '', email: '', role: '', token: '',
+  });
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const logout = () => {
+    setUser(undefined);
+    setIsSignedIn(false);
+  };
+
   const memorizedContext = useMemo(() => ({
     user: {
-      name,
-      setName,
-      email,
-      setEmail,
-      role,
-      setRole,
-      token,
-      setToken,
+      currentUser: user,
+      ...user,
+      setUser,
     },
     login: {
       isSignedIn,
+      logout,
       setIsSignedIn,
     },
     loading: {
       loading,
       setLoading,
     },
-  }), [
-    name,
-    setName,
-    email,
-    setEmail,
-    token,
-    setToken,
-    role,
-    setRole,
-    loading,
-    setLoading,
-    isSignedIn,
-    setIsSignedIn,
-  ]);
+  }), [user, setUser, isSignedIn, logout, loading]);
 
   useEffect(() => {
-    if (token) {
+    if (user.token) {
       try {
-        setHeaderToken(token);
+        setHeaderToken(user.token);
 
         requestGet('/user').then((resp) => {
-          setName(resp.name);
-          setEmail(resp.email);
-          setRole(resp.role);
+          setUser({ ...user, name: resp.name, email: resp.email, role: resp.role });
 
           setIsSignedIn(true);
-
           return setLoading(false);
         });
       } catch (error) {
