@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 
 import './App.scss';
-import { Login, Register, Products, Customer, MyRequests } from './pages';
+import { Login, Register, Products, Customer, MyRequests, RequestsSeller } from './pages';
 
 // Feito pelo G4 Rerun
 
@@ -18,6 +18,8 @@ function App() {
           <Route path="/customer/products" element={ <Products /> } />
           <Route path="/customer/orders" element={ <MyRequests /> } />
         </Route>
+        <Route path="/seller" element={ <RequestsSeller /> } />
+        <Route path="seller/orders/:id" />
       </Routes>
     </Router>
   );
