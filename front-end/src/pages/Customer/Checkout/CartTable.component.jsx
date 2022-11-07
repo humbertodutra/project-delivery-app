@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import CartContext from '../../context/cart';
+import { HomeerContext } from '../../../context/Provider';
 
 export default function CartTable({ products, dataTest, dataTestTotal }) {
-  const { setProductsCart } = useContext(CartContext);
+  const {
+    products: {
+      // productsCart,
+      setProductsCart,
+    },
+  } = useContext(HomeerContext);
 
   const removeItem = (index) => {
     const productToRemove = products.filter((_, a) => a !== index);
@@ -11,7 +16,9 @@ export default function CartTable({ products, dataTest, dataTestTotal }) {
   };
 
   const totalPrice = products.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
-  const total = totalPrice.toFixed(2);
+  const total = totalPrice.toFixed(2).toString();
+  const totalFormat = total.replace('.', ',');
+  console.log(totalFormat);
 
   return (
     <section>
@@ -35,19 +42,19 @@ export default function CartTable({ products, dataTest, dataTestTotal }) {
                 <td
                   data-testid={ `${dataTest}-quantity-${index}` }
                 >
-                  { p.quantidade }
+                  { p.quantity }
 
                 </td>
                 <td
                   data-testid={ `${dataTest}-unit-price-${index}` }
                 >
-                  { p.price }
+                  { p.price.toFixed(2).toString().replace('.', ',') }
 
                 </td>
                 <td
                   data-testid={ `${dataTest}-sub-total-${index}` }
                 >
-                  { p.subTotal }
+                  { p.subTotal.toFixed(2).toString().replace('.', ',') }
 
                 </td>
 
@@ -69,7 +76,7 @@ export default function CartTable({ products, dataTest, dataTestTotal }) {
       <h3
         data-testid={ `${dataTestTotal}__element-order-total-price` }
       >
-        {`Total: R$${total}`}
+        {`Total: R$${totalFormat}`}
 
       </h3>
     </section>

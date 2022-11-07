@@ -6,21 +6,13 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     name: DataTypes.STRING,
-    price: DataTypes.DECIMAL,
+    price: DataTypes.DECIMAL(4, 2),
     urlImage: DataTypes.STRING
   },
     {
       timestamps: false,
       underscored: true,
-      modelName: 'products',
     });
-
-  products.associate = (models) => {
-    products.hasMany(models.salesProduct,
-      {
-        foreignKey: 'product_id', as: 'sales_product'
-      });
-  };
 
   return products;
 };

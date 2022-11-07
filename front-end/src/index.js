@@ -1,30 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
+
+import { Provider } from './context/Provider';
+import theme from './styles/theme';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import CartProvider from './context/provider';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      // Purple and green play nicely together.
-      main: '#eeb105',
-    },
-    secondary: {
-      // This is green.A700 as hex.
-      main: '#816004',
-    },
-  },
-});
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={ theme }>
-      <CartProvider>
+    <Provider>
+      <ThemeProvider theme={ theme }>
         <App />
-      </CartProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

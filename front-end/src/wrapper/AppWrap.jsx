@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import Loading from '../components/Loading/Loading';
+import { HomeerContext } from '../context/Provider';
 
 /**
  *
@@ -8,7 +11,15 @@ import React from 'react';
  * @param {React.Component} Footer [Opcional] - O componente que será usado como footer
  * @param {string} ClassNames [Opcional] - Classes CSS que serão adicionadas ao componente, por padrão serão 'app__wrapper app__flex'
  */
-const AppWrap = (Component, Header, Footer, classNames) => function HOC() {
+const AppWrap = (
+  Component,
+  Header = null,
+  Footer = null,
+  classNames = null,
+) => function HOC() {
+  const { loading: { loading } } = useContext(HomeerContext);
+  if (loading) return <Loading />;
+
   return (
     <>
       {Header && <Header />}

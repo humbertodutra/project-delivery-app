@@ -1,16 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import data from './productsMock.json';
-import CartContext from '../../context/cart';
 import CartTable from './CartTable.component';
 import CartForm from './CartCheckoutForm.component';
+import { HomeerContext } from '../../../context/Provider';
+import Header from '../../../components/Header/Header';
+import Footer from '../../../components/Footer/Footer';
+import AppWrap from '../../../wrapper/AppWrap';
 
 function Cart() {
   const {
-    productsCart,
-    setLoading,
-    loading,
-    setProductsCart,
-  } = useContext(CartContext);
+    products: {
+      productsCart,
+      setProductsCart,
+    },
+  } = useContext(HomeerContext);
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setProductsCart(data);
@@ -20,7 +25,6 @@ function Cart() {
   return (
     <main>
       <section>
-        <p> Header </p>
         <h3> Finalizar Pedido </h3>
         { loading ? (
           <h2>Carregando ...</h2>)
@@ -42,4 +46,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default AppWrap(Cart, Header, Footer, null);

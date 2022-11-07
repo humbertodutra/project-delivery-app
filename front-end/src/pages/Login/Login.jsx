@@ -1,62 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
+import { HomeerContext } from '../../context/Provider';
 
-import { validate } from 'front-end-validation';
 import Images from '../../constants/images';
+import Roles from '../../constants/roles';
 import AppWrap from '../../wrapper/AppWrap';
+
+import loginSchema from '../../validations/login';
+import { requestPost, requestGet, setHeaderToken } from '../../utils/Resquest';
 
 import './Login.scss';
 
 function Login() {
+  const {
+    user: {
+      setName,
+      setEmail,
+      setRole,
+      setToken,
+    },
+    login: {
+      setIsSignedIn,
+    },
+  } = useContext(HomeerContext);
+
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
   const [passed, setPassed] = useState({ email: false, password: false });
+  const navigate = useNavigate();
 
-  const emailVal = (value) => ({
-    email: {
-      value,
-      rules: {
-        required: true,
-        email: true,
-      },
-    },
-  });
+  const validator = (newForm) => {
+    const valReturn = loginSchema.safeParse(newForm);
+    console.log(valReturn);
 
-  const passwordVal = (value) => ({
-    password: {
-      value,
-      rules: {
-        required: true,
-        min: 6,
-      },
-    },
-  });
+    if (valReturn.success) {
+      setPassed({ email: true, password: true });
+      setIsError(false);
+      return;
+    }
 
-  const validator = (type, value) => {
-    const validation = type === 'email' ? emailVal(value) : passwordVal(value);
+    const { error: { issues } } = valReturn;
+    const errorMsg = [];
 
-    validate(validation)
-      .then(() => {
-        setIsError(false);
-        setPassed({ ...passed, [type]: true });
-      })
-      .catch((err) => {
-        setIsError(true);
-        setPassed({ ...passed, [type]: false });
-        setError(err.errors[type][0]);
-      });
+    issues.forEach((issue) => {
+      errorMsg.push(issue.message);
+      setPassed({ ...passed, [issue.path[0]]: false });
+    });
+
+    setIsError(true);
+    setError(errorMsg.join(' e '));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const newForm = { ...form, [name]: value };
 
-    if (value) return validator(name, value);
+    setForm(newForm);
+    if (value) return validator(newForm);
 
     setIsError(false);
     setPassed({ ...passed, [name]: false });
+  };
+
+  const loginUser = async () => {
+    const { name, email, role } = await requestGet('/user');
+    setName(name);
+    setEmail(email);
+    setRole(role);
+
+    setIsSignedIn(true);
+    navigate(Roles[role]);
+  };
+
+  const getToken = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { token } = await requestPost('/login', form);
+
+      setHeaderToken(token);
+      setToken(token);
+
+      loginUser();
+    } catch (err) {
+      if (err.response) {
+        const { response: { data: { message } } } = err;
+        setError(message);
+        setIsError(true);
+      }
+
+      setError(err.message);
+      setIsError(true);
+      console.log(err);
+    }
   };
 
   return (
@@ -64,7 +104,7 @@ function Login() {
       <img src={ Images.Logo } alt="logo" className="app__login-logo" />
 
       <div className="app__login-card app__flex box-shadow">
-        <h1>Bem vindo! 🙂</h1>
+        <h1>Bem vindo! 😎 </h1>
         <TextField
           inputProps={ {
             'data-testid': 'common_login__input-email',
@@ -98,6 +138,7 @@ function Login() {
           variant="contained"
           type="button"
           data-testid="common_login__button-login"
+          onClick={ (event) => getToken(event) }
         >
           Entrar
         </Button>
@@ -107,17 +148,20 @@ function Login() {
           variant="outlined"
           type="button"
           data-testid="common_login__button-register"
+          onClick={ () => navigate('/register') }
         >
           Ainda não tem conta?
         </Button>
       </div>
 
-      <p
-        data-testid="common_login__element-invalid-email"
-        style={ { display: isError ? 'block' : 'none' } }
-      >
-        { error }
-      </p>
+      <div className="app__login-error">
+        <p
+          data-testid="common_login__element-invalid-email"
+          style={ { display: isError ? 'block' : 'none' } }
+        >
+          {error}
+        </p>
+      </div>
     </div>
   );
 }
