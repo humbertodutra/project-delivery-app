@@ -21,30 +21,43 @@ export function Provider({ children }) {
     setIsSignedIn(false);
   };
 
-  const memorizedContext = useMemo(() => ({
-    user: {
-      currentUser: user,
-      ...user,
+  const memorizedContext = useMemo(
+    () => ({
+      user: {
+        currentUser: user,
+        ...user,
+        setUser,
+      },
+      login: {
+        isSignedIn,
+        logout,
+        setIsSignedIn,
+      },
+      loading: {
+        loading,
+        setLoading,
+      },
+      cart: {
+        cart,
+        setCart,
+      },
+      products: {
+        productsCart,
+        setProductsCart,
+      },
+    }),
+    [
+      user,
       setUser,
-    },
-    login: {
       isSignedIn,
       logout,
-      setIsSignedIn,
-    },
-    loading: {
       loading,
-      setLoading,
-    },
-    cart: {
       cart,
       setCart,
-    },
-    products: {
       productsCart,
       setProductsCart,
-    },
-  }), [user, setUser, isSignedIn, logout, loading, cart, setCart, productsCart, setProductsCart]);
+    ],
+  );
 
   useEffect(() => {
     if (user.token) {
