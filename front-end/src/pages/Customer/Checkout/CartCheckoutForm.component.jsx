@@ -33,8 +33,6 @@ export default function CartForm() {
     getUser();
   }, []);
 
-
-
   const handleClick = async () => {
     // const token = localStorage.getItem('token');
     const body = {
@@ -46,7 +44,6 @@ export default function CartForm() {
       deliveryNumber,
       orders: cart.map(({ id, quantity }) => ({ productId: id, quantity })),
     };
-    
     const a = await requestPost(
       '/customer/orders',
       body,
@@ -105,7 +102,7 @@ export default function CartForm() {
       <button
         data-testid="customer_checkout__button-submit-order"
         type="button"
-        onClick={ (event) => handleClick(event) }
+        onClick={ handleClick }
       >
         FINALIZAR PEDIDO
       </button>
