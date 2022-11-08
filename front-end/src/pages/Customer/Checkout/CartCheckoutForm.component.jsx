@@ -50,9 +50,9 @@ export default function CartForm() {
     );
 
     console.log(a);
-    // const { id } = a;
+    const { id } = a;
 
-    navigate('/customer/orders/');
+    navigate(`/customer/orders/${id}`);
   };
 
   return (
