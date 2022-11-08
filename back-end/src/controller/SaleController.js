@@ -19,7 +19,7 @@ const saleController = {
             totalPrice,
             deliveryAddress,
             deliveryNumber, orders } = req.body;
-            
+            console.log(req.body);
         const createSale = await saleService.create({ userId,
             sellerId,
             totalPrice,

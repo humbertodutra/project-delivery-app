@@ -5,15 +5,16 @@ import { requestPost, requestGet } from '../../../utils/Resquest';
 
 export default function CartForm() {
   const [user, setUser] = useState('');
-  const [sellerId, setSellerId] = useState();
+  const [sellerId, setSellerId] = useState(2);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
   const navigate = useNavigate();
 
-  const { products: {
-    productsCart,
-  } } = useContext(HomeerContext);
+  const {
+    cart: {
+      cart,
+    } } = useContext(HomeerContext);
 
   // const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ export default function CartForm() {
     const getSellers = async () => {
       const data = await requestGet('/user/role/seller');
       setSellers(data);
-      console.log(data);
+      setSellerId(data[0].id);
     };
 
     const getUser = async () => {
@@ -37,25 +38,21 @@ export default function CartForm() {
     const body = {
       userId: user.id,
       sellerId,
-      totalPrice: productsCart.reduce((acc, curr) => acc + Number(curr.subTotal), 0),
+      totalPrice:
+       Number(cart.reduce((acc, curr) => acc + Number(curr.subTotal), 0).toFixed(2)),
       deliveryAddress,
       deliveryNumber,
-      orders: productsCart.map(({ id, quantity }) => ({ productId: id, quantity })),
+      orders: cart.map(({ id, quantity }) => ({ productId: id, quantity })),
     };
-    const { id } = await requestPost(
+    const a = await requestPost(
       '/customer/orders',
       body,
     );
-    console.log(body);
+
+    console.log(a);
+    const { id } = a;
 
     navigate(`/customer/orders/${id}`);
-  };
-
-  const handleSeller = (id) => {
-    const a = Number(id);
-    setSellerId(a);
-    console.log(sellerId);
-    return null;
   };
 
   return (
@@ -67,14 +64,13 @@ export default function CartForm() {
           name="seller"
           id="seller"
           value={ sellerId }
-
+          onClick={ ({ target }) => setSellerId(Number(target.value)) }
         >
           {sellers.length > 0
           && sellers.map(({ name, id }) => (
             <option
               key={ `sellers-${id}` }
               value={ id }
-              onClick={ ({ target: { value } }) => handleSeller(value) }
             >
               {name}
             </option>
