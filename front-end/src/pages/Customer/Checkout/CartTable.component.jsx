@@ -4,15 +4,14 @@ import { HomeerContext } from '../../../context/Provider';
 
 export default function CartTable({ products, dataTest, dataTestTotal }) {
   const {
-    products: {
-      // productsCart,
-      setProductsCart,
+    cart: {
+      setCart,
     },
   } = useContext(HomeerContext);
 
   const removeItem = (index) => {
     const productToRemove = products.filter((_, a) => a !== index);
-    setProductsCart(productToRemove);
+    setCart(productToRemove);
   };
 
   const totalPrice = products.reduce((acc, curr) => acc + Number(curr.subTotal), 0);
@@ -48,13 +47,13 @@ export default function CartTable({ products, dataTest, dataTestTotal }) {
                 <td
                   data-testid={ `${dataTest}-unit-price-${index}` }
                 >
-                  { p.price.toFixed(2).toString().replace('.', ',') }
+                  { ` R$${p.price.replace('.', ',')}` }
 
                 </td>
                 <td
                   data-testid={ `${dataTest}-sub-total-${index}` }
                 >
-                  { p.subTotal.toFixed(2).toString().replace('.', ',') }
+                  { `R$${p.subTotal.toFixed(2).toString().replace('.', ',')}` }
 
                 </td>
 

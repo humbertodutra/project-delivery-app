@@ -2,14 +2,15 @@ const { Sequelize } = require('sequelize');
 const { products, sales, salesProducts, users } = require('../database/models');
 const config = require('../database/config/config');
 
-const sequelize = new Sequelize(config.development);
-console.log('oi')
+
+
 const dateFormat = () => {
     const dateNow = new Date();
     const date = new Date(Date.UTC(
         dateNow.getUTCFullYear(),
         dateNow.getUTCMonth(),
         dateNow.getUTCDate(),
+        (''),
         dateNow.getUTCHours(),
         dateNow.getUTCMinutes(),
         dateNow.getUTCSeconds(),
@@ -44,22 +45,26 @@ const saleService = {
         },
 
     create: async (sale, orders) => {
-            const newSale = await sequelize.transaction(async (t) => {
-              const { id } = await sales.create({
-                ...sale, status: 'Pendente', saleDate: dateFormat(),
-              }, { transaction: t });
-              const productss = orders.map((product) => (
-                { saleId: id, productId: product.productId, quantity: product.quantity }
-              ));
-                
-              await salesProducts.bulkCreate(productss, { transaction: t });
-          
-              return { id };
-            });
-          
-            return newSale;
-          },
+      
+    const newSale = await sales.create({...sale, saleDate: dateFormat(), status: 'Pendente'})
+    createSalesProduct(newSale.dataValues.id, orders)
+   async function createSalesProduct(id, orders) {
+     const newSaleProducts =  orders.map( (a) =>
+        salesProducts.create({ 
+          saleId: id, 
+          productId: a.productId, 
+          quantity: a.quantity } ))
 
+      const [newSaleProductss] = await Promise.all(newSaleProducts);
+    
+      return newSaleProductss;
+    }
+    console.log(newSale.dataValues)
+    return newSale.dataValues;
+    
+  },
+
+ 
     updateSaleStatus: async (id, status) => {
         const saleToUpdate = await sales.findAll({ where: { id } });
         if (!saleToUpdate || saleToUpdate.length === 0) return null;
