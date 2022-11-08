@@ -12,7 +12,6 @@ import {
   RequestsSeller,
   OrderDetails,
 } from './pages';
-import TestComponent from './pages/Customer/Checkout/test.component';
 import DetailsSeller from './pages/Seller/Requests/DetailsSeller';
 
 // Feito pelo G4 Rerun
