@@ -5,18 +5,9 @@ const config = require('../database/config/config');
 
 
 const dateFormat = () => {
-    const dateNow = new Date();
-    const date = new Date(Date.UTC(
-        dateNow.getUTCFullYear(),
-        dateNow.getUTCMonth(),
-        dateNow.getUTCDate(),
-        (''),
-        dateNow.getUTCHours(),
-        dateNow.getUTCMinutes(),
-        dateNow.getUTCSeconds(),
-        dateNow.getUTCMilliseconds(),
-    ));
-    return date;
+  const date = new Date(); 
+  const dateFormatPt = new Intl.DateTimeFormat('pt-BR').format(date); 
+    return dateFormatPt;
 };
 
 const saleService = {
@@ -46,9 +37,9 @@ const saleService = {
 
     create: async (sale, orders) => {
       
-    const newSale = await sales.create({...sale, saleDate: dateFormat(), status: 'Pendente'})
-    createSalesProduct(newSale.dataValues.id, orders)
-   async function createSalesProduct(id, orders) {
+    const newSale = await sales.create({...sale, status: 'Pendente'})
+   
+    async function createSalesProduct(id, orders) {
      const newSaleProducts =  orders.map( (a) =>
         salesProducts.create({ 
           saleId: id, 
@@ -56,10 +47,13 @@ const saleService = {
           quantity: a.quantity } ))
 
       const [newSaleProductss] = await Promise.all(newSaleProducts);
+      console.log(newSaleProductss);
     
       return newSaleProductss;
     }
     console.log(newSale.dataValues)
+
+    createSalesProduct(newSale.dataValues.id, orders)
     return newSale.dataValues;
     
   },

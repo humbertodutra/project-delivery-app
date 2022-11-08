@@ -33,6 +33,12 @@ export default function CartForm() {
     getUser();
   }, []);
 
+  // const dateFormat = () => {
+  //   const date = new Date();
+  //   const dateFormatPt = new Intl.DateTimeFormat('pt-BR').format(date);
+  //   return dateFormatPt;
+  // };
+
   const handleClick = async () => {
     // const token = localStorage.getItem('token');
     const body = {
@@ -50,7 +56,7 @@ export default function CartForm() {
       body,
     );
 
-    console.log(body);
+    console.log(a);
     const { id } = a;
 
     navigate(`/customer/orders/${id}`);
