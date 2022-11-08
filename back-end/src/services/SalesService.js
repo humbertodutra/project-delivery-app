@@ -44,9 +44,7 @@ const saleService = {
         },
 
     create: async (sale, orders) => {
-
               try {
-                
                 const newSale = await sequelize.transaction(async (t) => {
                   const { id } = await sales.create({
                     ...sale, status: 'Pendente', saleDate: dateFormat(),
@@ -54,7 +52,6 @@ const saleService = {
                   const productss = orders.map((product) => (
                     { saleId: id, productId: product.productId, quantity: product.quantity }
                   ));
-                    
                   await salesProducts.bulkCreate(productss, { transaction: t });
               
                   return { id };
@@ -62,8 +59,7 @@ const saleService = {
                 return newSale;
               } catch (error) {
                 console.log(error.message)
-              }
-          
+              };
           },
 
     updateSaleStatus: async (id, status) => {
