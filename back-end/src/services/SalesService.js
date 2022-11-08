@@ -58,8 +58,8 @@ const saleService = {
                 });
                 return newSale;
               } catch (error) {
-                console.log(error.message)
-              };
+                console.log(error.message);
+              }
           },
 
     updateSaleStatus: async (id, status) => {
