@@ -5,7 +5,7 @@ import { requestPost, requestGet } from '../../../utils/Resquest';
 
 export default function CartForm() {
   const [user, setUser] = useState('');
-  const [sellerId, setSellerId] = useState();
+  const [sellerId, setSellerId] = useState(2);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
@@ -37,7 +37,7 @@ export default function CartForm() {
     // const token = localStorage.getItem('token');
     const body = {
       userId: user.id,
-      sellerId,
+      sellerId: Number(sellerId),
       totalPrice: productsCart.reduce((acc, curr) => acc + Number(curr.subTotal), 0),
       deliveryAddress,
       deliveryNumber,
@@ -55,7 +55,7 @@ export default function CartForm() {
   const handleSeller = (id) => {
     const a = Number(id);
     setSellerId(a);
-    console.log(sellerId);
+    console.log(a, 'indentificando');
     return null;
   };
 
@@ -68,14 +68,13 @@ export default function CartForm() {
           name="seller"
           id="seller"
           value={ sellerId }
-
+          onChange={ ({ target: { value } }) => handleSeller(value) }
         >
           {sellers.length > 0
           && sellers.map(({ name, id }) => (
             <option
               key={ `sellers-${id}` }
               value={ id }
-              onClick={ ({ target: { value } }) => handleSeller(value) }
             >
               {name}
             </option>

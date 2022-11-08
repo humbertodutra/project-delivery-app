@@ -10,13 +10,16 @@ function SellerCard({
   deliveryNumber,
   saleDate }) {
   console.log(totalPrice);
-  const TEN = 10;
+
+  const date = new Date(saleDate);
+  const dateFormat = new Intl.DateTimeFormat('pt-BR').format(date);
   return (
     <div
       className="app__request-card"
     >
       <div className="app__request-card-id">
         <span data-testid={ `seller_orders__element-order-id-${id}` }>
+          00
           {id}
         </span>
       </div>
@@ -27,10 +30,11 @@ function SellerCard({
       </div>
       <div className="app__request-card-date-price">
         <span data-testid={ `seller_orders__element-order-date-${id}` }>
-          {saleDate.slice(0, TEN).split('-').reverse().join('/') }
+          {dateFormat}
+          {/* saleDate.slice(0, TEN).split('-').reverse().join('/')  */}
         </span>
         <span data-testid={ `seller_orders__element-card-price-${id}` }>
-          {totalPrice}
+          {totalPrice.replace('.', ',')}
         </span>
         <p
           data-testid={ `seller_orders__element-card-address-${id}` }
