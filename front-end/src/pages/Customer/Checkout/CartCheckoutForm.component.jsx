@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HomeerContext } from '../../../context/Provider';
@@ -45,11 +44,11 @@ export default function CartForm() {
       orders: productsCart.map(({ id, quantity }) => ({ productId: id, quantity })),
     };
     console.log(body);
-    const bodyPost = await requestPost(
+    const { id } = await requestPost(
       '/customer/orders',
       body,
     );
-    console.log(bodyPost);
+    console.log(id);
     navigate(`/customer/orders/${id}`);
   };
 
@@ -105,13 +104,13 @@ export default function CartForm() {
           onChange={ ({ target: { value } }) => setDeliveryNumber(value) }
         />
       </label>
-      <Button
+      <button
         data-testid="customer_checkout__button-submit-order"
         type="button"
         onClick={ (event) => handleClick(event) }
       >
         FINALIZAR PEDIDO
-      </Button>
+      </button>
     </form>
   );
 }

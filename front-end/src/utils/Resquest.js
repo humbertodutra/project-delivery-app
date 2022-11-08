@@ -14,7 +14,7 @@ export const requestGet = async (endpoint) => {
 };
 
 export const requestGetId = async (endpoint, id) => {
-  const { data } = await api.get(endpoint, { params: { id } });
+  const { data } = await api.get(endpoint, id);
   return data;
 };
 
