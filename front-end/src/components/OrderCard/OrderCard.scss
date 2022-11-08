@@ -1,0 +1,34 @@
+@import "../../styles/vars.scss";
+@import "../../styles/globals.scss";
+
+.app__request-card {
+  background-color: $white-color;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 1rem;
+  margin: 0.4rem 0 0.4rem 0;
+  padding: 0.8rem;
+
+  .app__request-card-number-id {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .app__request-card-status {
+    align-items: center;
+    border-radius: 0.4rem;
+    background-color: springgreen;
+    display: flex;
+    justify-content: center;
+    width: 12rem;
+  }
+
+  .app__request-card-data-value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+  }
+}

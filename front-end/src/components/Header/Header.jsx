@@ -28,12 +28,14 @@ function Header() {
         <Button
           data-testid="customer_products__element-navbar-link-products"
           variant="outlined"
+          onClick={ () => navigate('/customer/products') }
         >
           Produtos
         </Button>
         <Button
           data-testid="customer_products__element-navbar-link-orders"
           variant="outlined"
+          onClick={ () => navigate('/customer/orders') }
         >
           Meus Pedidos
         </Button>

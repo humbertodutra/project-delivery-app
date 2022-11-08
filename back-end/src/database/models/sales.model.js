@@ -23,9 +23,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     saleDate: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
     },
-    status: DataTypes.STRING,
+    status: 
+      DataTypes.STRING,      
   },
     {
       timestamps: false,
@@ -36,10 +38,10 @@ module.exports = (sequelize, DataTypes) => {
   sales.associate = (models) => {
     sales.belongsTo(models.users,
       {
-        foreignKey: 'user_id',
+        foreignKey: 'userId',
         as: 'users',
       }, {
-      foreignKey: 'seller_id',
+      foreignKey: 'sellerId',
       as: 'seller',
     },
     );

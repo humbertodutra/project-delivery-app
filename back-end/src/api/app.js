@@ -4,6 +4,7 @@ const express = require('express');
 const filterErrors = require('../errors/ErrorController');
 const productRoute = require('../routes/ProductsRoute');
 const userRoute = require('../routes/UserRoute');
+const salesRoute = require('../routes/salesRoute');
 
 const app = express();
 app.use(cors());
@@ -12,6 +13,7 @@ app.use(express.json());
 
 app.use('/products', productRoute);
 app.use('/', userRoute);
+app.use(salesRoute);
 
 app.use(filterErrors);
 

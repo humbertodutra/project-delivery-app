@@ -297,3 +297,6 @@ back-end/.env
 **/reports/**/*
 **/coverage
 **/.nyc_output
+front-end/ Dockerfile
+back-end/ Dockerfile
+docker-compose.yml

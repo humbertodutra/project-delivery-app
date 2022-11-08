@@ -16,8 +16,8 @@ function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
-  const navigate = useNavigate();
   const [passed, setPassed] = useState({ name: false, email: false, password: false });
+  const navigate = useNavigate();
 
   const {
     user: {
