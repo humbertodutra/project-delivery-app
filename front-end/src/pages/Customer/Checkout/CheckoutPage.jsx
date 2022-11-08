@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import data from './productsMock.json';
 import CartTable from './CartTable.component';
 import CartForm from './CartCheckoutForm.component';
 import { HomeerContext } from '../../../context/Provider';
@@ -9,18 +8,17 @@ import AppWrap from '../../../wrapper/AppWrap';
 
 function Cart() {
   const {
-    products: {
-      productsCart,
-      setProductsCart,
+    cart: {
+      cart,
     },
   } = useContext(HomeerContext);
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setProductsCart(data);
     setLoading(false);
-  }, [setLoading, setProductsCart]);
+    console.log(cart);
+  }, [setLoading, cart]);
 
   return (
     <main>
@@ -32,7 +30,7 @@ function Cart() {
             <CartTable
               dataTest="customer_checkout__element-order-table"
               dataTestTotal="customer_checkout"
-              products={ productsCart }
+              products={ cart }
             />
           )}
       </section>
