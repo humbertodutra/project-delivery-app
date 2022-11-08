@@ -12,6 +12,7 @@ import {
   RequestsSeller,
 } from './pages';
 import TestComponent from './pages/Customer/Checkout/test.component';
+import DetailsSeller from './pages/Seller/Requests/DetailsSeller';
 
 // Feito pelo G4 Rerun
 
@@ -34,7 +35,7 @@ function App() {
         <Route path="/seller">
           <Route index />
           <Route path="/seller/orders" element={ <RequestsSeller /> } />
-          <Route path="seller/orders/:id" />
+          <Route path="/seller/orders/:id" element={ <DetailsSeller /> } />
         </Route>
 
       </Routes>

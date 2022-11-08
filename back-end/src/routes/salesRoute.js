@@ -5,13 +5,13 @@ const { validateUser,
     validateAddress,
     validateOrder } = require('../middlewares/salesValidate');
 
-const saleRoute = express.Router();
+const salesRoute = express.Router();
 
-saleRoute.get('/customer/orders', auth, getAll);
-saleRoute.get('/customer/orders/:id', auth, getById);
-saleRoute.patch('/customer/orders/:id', auth, updateStatus);
+salesRoute.get('/customer/orders', auth, getAll);
+salesRoute.get('/customer/orders/:id', auth, getById);
+salesRoute.patch('/customer/orders/:id', auth, updateStatus);
 
-saleRoute.post(
+salesRoute.post(
     '/customer/orders',
     auth,
     validateUser,
@@ -20,4 +20,4 @@ saleRoute.post(
     create,
 );
 
-module.exports = saleRoute;
+module.exports = salesRoute;

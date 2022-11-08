@@ -5,7 +5,7 @@ import { requestPost, requestGet } from '../../../utils/Resquest';
 
 export default function CartForm() {
   const [user, setUser] = useState('');
-  const [sellerId, setSellerId] = useState();
+  const [sellerId, setSellerId] = useState(2);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryNumber, setDeliveryNumber] = useState('');
   const [sellers, setSellers] = useState([]);
@@ -33,12 +33,6 @@ export default function CartForm() {
     getUser();
   }, []);
 
-  // const dateFormat = () => {
-  //   const date = new Date();
-  //   const dateFormatPt = new Intl.DateTimeFormat('pt-BR').format(date);
-  //   return dateFormatPt;
-  // };
-
   const handleClick = async () => {
     // const token = localStorage.getItem('token');
     const body = {
@@ -50,7 +44,6 @@ export default function CartForm() {
       deliveryNumber,
       orders: cart.map(({ id, quantity }) => ({ productId: id, quantity })),
     };
-
     const a = await requestPost(
       '/customer/orders',
       body,
