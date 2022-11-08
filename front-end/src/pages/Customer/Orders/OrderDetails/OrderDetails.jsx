@@ -3,10 +3,11 @@ import Header from '../../../../components/Header/Header';
 import Footer from '../../../../components/Footer/Footer';
 import AppWrap from '../../../../wrapper/AppWrap';
 import TableComponent from '../../../../components/TableComponent/TableComponent';
+import './OrderDetails.scss';
 
 function OrderDetails() {
   return (
-    <>
+    <div className="container-table">
       <h1>Detalhes do Pedido</h1>
 
       <div className="bar-info">
@@ -16,10 +17,11 @@ function OrderDetails() {
         <div><h2>Status</h2></div>
         <div><button type="button">MARCAR COMO ENTREGUE</button></div>
       </div>
-      <TableContainer>
+
+      <TableContainer className="table-mui">
         <TableComponent />
       </TableContainer>
-    </>
+    </div>
   );
 }
 
