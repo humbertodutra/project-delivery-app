@@ -1,41 +1,40 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import Footer from '../../../components/Footer/Footer';
 import Header from '../../../components/Header/Header';
 import OrderCard from '../../../components/OrderCard/OrderCard';
 import AppWrap from '../../../wrapper/AppWrap';
+import { requestGet } from '../../../utils/Resquest';
 
 function Orders() {
-  const vendas = [
-    {
-      id: 1,
-      userId: 2,
-      sellerId: 2,
-      totalPrice: '10.99',
-      deliveryAddress: 'Rua da mata',
-      deliveryNumber: '50',
-      saleDate: '2022-11-07T17:44:15.000Z',
-      status: 'delivered',
-    },
-    {
-      id: 2,
-      userId: 3,
-      sellerId: 1,
-      totalPrice: '11.99',
-      deliveryAddress: 'Avenida das flores',
-      deliveryNumber: '60',
-      saleDate: '2022-11-07T17:44:15.000Z',
-      status: 'waiting the payment',
-    },
-  ];
+  const [orders, setOrders] = useState([]);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    requestGet('/customer/orders').then((response) => {
+      setOrders(response);
+    });
+  }, []);
+
+  console.log(orders);
   return (
-    vendas.map(({ id, status, saleDate, totalPrice }) => (
-      <OrderCard
+    orders.map(({ id, status, saleDate, totalPrice }) => (
+      <div
         key={ id }
-        id={ id }
-        status={ status }
-        saleDate={ saleDate }
-        totalPrice={ totalPrice }
-      />))
+        onClick={ () => navigate(`/customer/orders/${id}`) }
+        onKeyDown={ () => {} }
+        role="button"
+        tabIndex="0"
+      >
+        <OrderCard
+          id={ id }
+          status={ status }
+          saleDate={ saleDate }
+          totalPrice={ totalPrice }
+        />
+      </div>
+    ))
   );
 }
 

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import './OrderCard.scss';
 
 export default function OrderCard({ id, status, saleDate, totalPrice }) {
+  const TEN = 10;
   return (
     <div className="app__request-card">
       <div className="app__request-card-number-id">
@@ -25,7 +26,7 @@ export default function OrderCard({ id, status, saleDate, totalPrice }) {
         <span
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {saleDate}
+          {saleDate.slice(0, TEN).split('-').reverse().join('/')}
         </span>
         <span
           data-testid={ `customer_orders__element-card-price-${id}` }
