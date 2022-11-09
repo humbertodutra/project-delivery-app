@@ -2,6 +2,9 @@ import PropTypes from 'prop-types';
 import './OrderCard.scss';
 
 export default function OrderCard({ id, status, saleDate, totalPrice }) {
+  const date = new Date(saleDate);
+  const dateFormat = new Intl.DateTimeFormat('pt-BR').format(date);
+
   return (
     <div className="app__request-card">
       <div className="app__request-card-number-id">
@@ -25,12 +28,12 @@ export default function OrderCard({ id, status, saleDate, totalPrice }) {
         <span
           data-testid={ `customer_orders__element-order-date-${id}` }
         >
-          {saleDate}
+          {dateFormat}
         </span>
         <span
           data-testid={ `customer_orders__element-card-price-${id}` }
         >
-          {totalPrice}
+          {totalPrice.replace('.', ',')}
         </span>
       </div>
     </div>
