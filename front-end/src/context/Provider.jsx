@@ -60,10 +60,10 @@ export function Provider({ children }) {
   );
 
   useEffect(() => {
+    console.log(user.token);
     if (user.token) {
       try {
         setHeaderToken(user.token);
-
         requestGet('/user').then((resp) => {
           setUser({ ...user, name: resp.name, email: resp.email, role: resp.role });
 
@@ -71,7 +71,7 @@ export function Provider({ children }) {
           return setLoading(false);
         });
       } catch (error) {
-        console.log(error);
+        console.log(error, 'entrou');
         return setIsSignedIn(false);
       }
     }

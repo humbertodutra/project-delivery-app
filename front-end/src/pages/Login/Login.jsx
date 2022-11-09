@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -92,6 +92,13 @@ function Login() {
       // console.log(err);
     }
   };
+
+  useEffect(() => {
+    console.log(currentUser);
+    if (currentUser.token) {
+      navigate('/customer/products');
+    }
+  }, []);
 
   return (
     <div className="app__flex app__login">
