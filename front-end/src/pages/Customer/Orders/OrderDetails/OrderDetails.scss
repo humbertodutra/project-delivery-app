@@ -1,0 +1,19 @@
+@import "../../../../styles/vars.scss";
+@import "../../../../styles/globals.scss";
+
+.container-table {
+  background-color: $white-color;
+  text-align: center;
+  width: 80%;
+
+  .bar-info {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    align-items: center;
+    border: 1px solid $black-color;
+  }
+
+  .table-mui {
+  }
+}

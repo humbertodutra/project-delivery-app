@@ -61,6 +61,7 @@ export function Provider({ children }) {
   );
 
   useEffect(() => {
+<<<<<<< HEAD
     async function loadUser() {
       const userString = localStorage.getItem('user');
       const userObj = await JSON.parse(userString);
@@ -77,6 +78,21 @@ export function Provider({ children }) {
           console.log(error);
           return setIsSignedIn(false);
         }
+=======
+    console.log(user.token);
+    if (user.token) {
+      try {
+        setHeaderToken(user.token);
+        requestGet('/user').then((resp) => {
+          setUser({ ...user, name: resp.name, email: resp.email, role: resp.role });
+
+          setIsSignedIn(true);
+          return setLoading(false);
+        });
+      } catch (error) {
+        console.log(error, 'entrou');
+        return setIsSignedIn(false);
+>>>>>>> 298b1e7a35b6863e76315a86d54c53bca4b623d4
       }
     }
 
