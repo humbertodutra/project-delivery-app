@@ -56,6 +56,25 @@ const userService = {
     const usersByRole = await users.findAll({ where: { role } });
     return usersByRole;
   },
+
+  listAllUsers: async () => {
+    const result = await users.findAll({
+      attributes: { exclude: ['password'] },
+    });
+    return result;
+  },
+
+  adminRegister: async ({ name, email, password, role }) => {
+    const data = await users.findOne({ where: { [Op.or]: [{ email }, { name }] } });
+    if (data) {
+      const error = new Error('User Already Registered');
+      error.name = 'ConflitError';
+      throw error;
+    }
+    const crypt = md5(password);
+    await users.create({ name, email, password: crypt, role });
+    return { name, email, password, role };
+  }
 };
 
 module.exports = userService;
