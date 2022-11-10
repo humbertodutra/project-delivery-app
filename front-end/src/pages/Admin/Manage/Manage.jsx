@@ -12,11 +12,14 @@ import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
 import adminRegisterSchema from '../../../validations/adminRegister';
+import { requestPost } from '../../../utils/Resquest';
 
 import './Manage.scss';
 
 function Manage() {
-  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'client' });
+  const [form, setForm] = useState({
+    name: '', email: '', password: '', role: 'customer',
+  });
 
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
@@ -26,7 +29,6 @@ function Manage() {
 
   const validator = (newForm) => {
     const valReturn = adminRegisterSchema.safeParse(newForm);
-    console.log(valReturn);
 
     if (valReturn.success) {
       setPassed({ name: true, email: true, password: true, role: true });
@@ -55,6 +57,29 @@ function Manage() {
 
     setIsError(false);
     setPassed({ ...passed, [name]: false });
+  };
+
+  const register = async (event) => {
+    event.preventDefault();
+
+    try {
+      const { email, role } = await requestPost('/admin/register', form);
+      console.log(email, role);
+
+      setForm({ name: '', email: '', password: '', role: 'customer' });
+      setPassed({ name: false, email: false, password: false, role: false });
+      setIsError(false);
+    } catch (err) {
+      if (err.response) {
+        const { response: { data: { message } } } = err;
+        setError(message);
+        setIsError(true);
+      }
+
+      setError(err.message);
+      setIsError(true);
+      console.log(err);
+    }
   };
 
   return (
@@ -123,12 +148,11 @@ function Manage() {
               } }
               color="primary"
               label="Funcao"
-              defaultValue="client"
               name="role"
               value={ form.role }
               onChange={ handleChange }
             >
-              <option value="client">Cliente</option>
+              <option value="customer">Cliente</option>
               <option value="seller">Vendedor</option>
               <option value="administrator">Administrador</option>
             </Select>
@@ -142,6 +166,7 @@ function Manage() {
             type="button"
             data-testid="admin_manage__button-register"
             disabled={ !passed.name || !passed.email || !passed.password || !passed.role }
+            onClick={ register }
           >
             Registrar
           </Button>
