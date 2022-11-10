@@ -13,8 +13,6 @@ function ProductCard({ id, name, price, urlImage, defaultQnt, onInputChange }) {
     value = Number(value);
     if (value < 0 || !value) value = 0;
 
-    console.log('Value no Change', value);
-
     onInputChange({
       id,
       name,

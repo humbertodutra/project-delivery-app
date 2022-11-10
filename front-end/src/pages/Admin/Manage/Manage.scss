@@ -8,6 +8,7 @@
     padding: 1rem;
     background-color: $white-color;
     border-radius: 10px;
+    margin-bottom: 2rem;
     
 
     h3 {
@@ -60,7 +61,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 35px;
+  min-height: 20px;
+  margin-top: 1rem;
 
   p {
     font-size: .9rem;

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-depth */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -79,95 +78,92 @@ function AddUser({ send, setSend }) {
   };
 
   return (
-    <>
-      <div className="box-shadow app__admin-register">
+    <div className="box-shadow app__admin-register">
 
-        <h3>Cadastrar novo usuário</h3>
+      <h3>Cadastrar novo usuário</h3>
 
-        <div className="app__flex app__admin-register-inputs">
+      <div className="app__flex app__admin-register-inputs">
 
-          <TextField
+        <TextField
+          inputProps={ {
+            'data-testid': 'admin_manage__input-name',
+            name: 'name',
+          } }
+          className="input-field"
+          color="primary"
+          label="Nome"
+          type="text"
+          placeholder="Ex: Manoel Souza"
+          name="name"
+          value={ form.name }
+          onChange={ handleChange }
+        />
+
+        <TextField
+          inputProps={ {
+            'data-testid': 'admin_manage__input-email',
+            name: 'email',
+          } }
+          className="input-field"
+          color="primary"
+          label="Email"
+          type="text"
+          placeholder="email@gmail.com"
+          name="email"
+          value={ form.email }
+          onChange={ handleChange }
+        />
+
+        <TextField
+          inputProps={ {
+            'data-testid': 'admin_manage__input-password',
+            name: 'password',
+          } }
+          className="input-field"
+          label="Senha"
+          type="password"
+          placeholder="********"
+          data-testid="admin_manage__input-password"
+          name="password"
+          value={ form.password }
+          onChange={ handleChange }
+        />
+
+        <FormControl sx={ { minWidth: 150 } }>
+          <InputLabel id="select-label">Função</InputLabel>
+          <Select
+            labelId="select-label"
+            id="simple-select"
+            native
             inputProps={ {
-              'data-testid': 'admin_manage__input-name',
-              name: 'name',
+              'data-testid': 'admin_manage__select-role',
+              name: 'role',
             } }
-            className="input-field"
             color="primary"
-            label="Nome"
-            type="text"
-            placeholder="Ex: Manoel Souza"
-            name="name"
-            value={ form.name }
+            label="Funcao"
+            name="role"
+            value={ form.role }
             onChange={ handleChange }
-          />
-
-          <TextField
-            inputProps={ {
-              'data-testid': 'admin_manage__input-email',
-              name: 'email',
-            } }
-            className="input-field"
-            color="primary"
-            label="Email"
-            type="text"
-            placeholder="email@gmail.com"
-            name="email"
-            value={ form.email }
-            onChange={ handleChange }
-          />
-
-          <TextField
-            inputProps={ {
-              'data-testid': 'admin_manage__input-password',
-              name: 'password',
-            } }
-            className="input-field"
-            label="Senha"
-            type="password"
-            placeholder="********"
-            data-testid="admin_manage__input-password"
-            name="password"
-            value={ form.password }
-            onChange={ handleChange }
-          />
-
-          <FormControl sx={ { minWidth: 150 } }>
-            <InputLabel id="select-label">Função</InputLabel>
-            <Select
-              labelId="select-label"
-              id="simple-select"
-              native
-              inputProps={ {
-                'data-testid': 'admin_manage__select-role',
-                name: 'role',
-              } }
-              color="primary"
-              label="Funcao"
-              name="role"
-              value={ form.role }
-              onChange={ handleChange }
-            >
-              <option value="customer">Cliente</option>
-              <option value="seller">Vendedor</option>
-              <option value="administrator">Administrador</option>
-            </Select>
-          </FormControl>
-
-          <Button
-            component="button"
-            className="input-button"
-            variant="contained"
-            type="button"
-            data-testid="admin_manage__button-register"
-            disabled={ !passed.name || !passed.email || !passed.password || !passed.role }
-            onClick={ register }
           >
-            Registrar
-          </Button>
+            <option value="customer">Cliente</option>
+            <option value="seller">Vendedor</option>
+            <option value="administrator">Administrador</option>
+          </Select>
+        </FormControl>
 
-        </div>
+        <Button
+          component="button"
+          className="input-button"
+          variant="contained"
+          type="button"
+          data-testid="admin_manage__button-register"
+          disabled={ !passed.name || !passed.email || !passed.password || !passed.role }
+          onClick={ register }
+        >
+          Registrar
+        </Button>
+
       </div>
-
       <div className="app__admin-error">
         <p
           data-testid="admin_manage__element-invalid-register"
@@ -176,7 +172,7 @@ function AddUser({ send, setSend }) {
           {error}
         </p>
       </div>
-    </>
+    </div>
   );
 }
 
