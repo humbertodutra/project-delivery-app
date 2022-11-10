@@ -19,6 +19,14 @@ module.exports = {
           delivery_number: '60',
           status: 'waiting the payment'
         },
+        {
+          user_id: 3,
+          seller_id: 1,
+          total_price: 11.99,
+          delivery_address: 'Avenida patati flores',
+          delivery_number: '6050',
+          status: 'payment'
+        },
       ],
       {},
     );
