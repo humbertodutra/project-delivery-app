@@ -2,6 +2,8 @@
 @import "../../../styles/globals.scss";
 
 .app__admin {
+  padding: 2rem;
+
   .app__admin-register {
     padding: 1rem;
     background-color: $white-color;
@@ -35,6 +37,21 @@
 
       margin-bottom: 1px;
       padding: 0;
+    }
+  }
+
+  .app__admin-table {
+    padding: 1rem;
+    background-color: $white-color;
+    border-radius: 10px;
+
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: $black-color;
+      padding: 0;
+      margin: 0;
+      margin-bottom: 1rem;
     }
   }
 }
