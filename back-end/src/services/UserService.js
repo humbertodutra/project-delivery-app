@@ -76,7 +76,21 @@ const userService = {
     const crypt = md5(password);
     await users.create({ name, email, password: crypt, role });
     return { name, email, password, role };
-  }
+  },
+
+  deleteUser: async (id) => {
+    const user = await users.findOne({ where: { id } });
+    if (!user) {
+      const error = new Error('User not found');
+      error.name = 'NotExist';
+      throw error;
+    }
+
+    const result = await users.destroy({ where: { id } });
+    if(result) {
+      return { message: 'User deleted' };
+    }
+  },
 };
 
 module.exports = userService;
