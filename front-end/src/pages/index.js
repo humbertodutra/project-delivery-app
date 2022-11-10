@@ -6,3 +6,4 @@ export { default as Customer } from './Customer/Customer';
 export { default as Products } from './Customer/Products/Products';
 export { default as RequestsSeller } from './Seller/Requests/RequestsSeller';
 export { default as Orders } from './Customer/Orders/Orders';
+export { default as Manage } from './Admin/Manage/Manage';

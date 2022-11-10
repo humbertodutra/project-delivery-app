@@ -9,6 +9,7 @@ import {
   Customer,
   Checkout,
   Orders,
+  Manage,
   RequestsSeller,
 } from './pages';
 import TestComponent from './pages/Customer/Checkout/test.component';
@@ -34,7 +35,12 @@ function App() {
         <Route path="/seller">
           <Route index />
           <Route path="/seller/orders" element={ <RequestsSeller /> } />
-          <Route path="seller/orders/:id" />
+          <Route path="/seller/orders/:id" />
+        </Route>
+
+        <Route path="/admin">
+          <Route index />
+          <Route path="/admin/manage" element={ <Manage /> } />
         </Route>
 
       </Routes>
