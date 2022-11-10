@@ -66,11 +66,13 @@ const userService = {
 
   adminRegister: async ({ name, email, password, role }) => {
     const data = await users.findOne({ where: { [Op.or]: [{ email }, { name }] } });
+
     if (data) {
       const error = new Error('User Already Registered');
       error.name = 'ConflitError';
       throw error;
     }
+    
     const crypt = md5(password);
     await users.create({ name, email, password: crypt, role });
     return { name, email, password, role };
