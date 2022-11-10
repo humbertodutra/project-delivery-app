@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 
@@ -12,11 +11,51 @@ import AppWrap from '../../../wrapper/AppWrap';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
+import adminRegisterSchema from '../../../validations/adminRegister';
+
 import './Manage.scss';
 
 function Manage() {
+  const [form, setForm] = useState({ name: '', email: '', password: '', role: 'client' });
+
   const [error, setError] = useState('');
   const [isError, setIsError] = useState(false);
+  const [passed, setPassed] = useState({
+    name: false, email: false, password: false, role: false,
+  });
+
+  const validator = (newForm) => {
+    const valReturn = adminRegisterSchema.safeParse(newForm);
+    console.log(valReturn);
+
+    if (valReturn.success) {
+      setPassed({ name: true, email: true, password: true, role: true });
+      setIsError(false);
+      return;
+    }
+
+    const { error: { issues } } = valReturn;
+    const errorMsg = [];
+
+    issues.forEach((issue) => {
+      errorMsg.push(issue.message);
+      setPassed({ ...passed, [issue.path[0]]: false });
+    });
+
+    setIsError(true);
+    setError(errorMsg.join(' e '));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    const newForm = { ...form, [name]: value };
+
+    setForm(newForm);
+    if (value) return validator(newForm);
+
+    setIsError(false);
+    setPassed({ ...passed, [name]: false });
+  };
 
   return (
     <div className="app__admin">
@@ -36,6 +75,9 @@ function Manage() {
             label="Nome"
             type="text"
             placeholder="Ex: Manoel Souza"
+            name="name"
+            value={ form.name }
+            onChange={ handleChange }
           />
 
           <TextField
@@ -48,6 +90,9 @@ function Manage() {
             label="Email"
             type="text"
             placeholder="email@gmail.com"
+            name="email"
+            value={ form.email }
+            onChange={ handleChange }
           />
 
           <TextField
@@ -60,6 +105,9 @@ function Manage() {
             type="password"
             placeholder="********"
             data-testid="admin_manage__input-password"
+            name="password"
+            value={ form.password }
+            onChange={ handleChange }
           />
 
           <FormControl sx={ { minWidth: 150 } }>
@@ -76,6 +124,9 @@ function Manage() {
               color="primary"
               label="Funcao"
               defaultValue="client"
+              name="role"
+              value={ form.role }
+              onChange={ handleChange }
             >
               <option value="client">Cliente</option>
               <option value="seller">Vendedor</option>
@@ -90,6 +141,7 @@ function Manage() {
             variant="contained"
             type="button"
             data-testid="admin_manage__button-register"
+            disabled={ !passed.name || !passed.email || !passed.password || !passed.role }
           >
             Registrar
           </Button>
