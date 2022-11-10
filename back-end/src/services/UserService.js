@@ -87,7 +87,7 @@ const userService = {
     }
 
     const result = await users.destroy({ where: { id } });
-    if(result) {
+    if (result) {
       return { message: 'User deleted' };
     }
   },

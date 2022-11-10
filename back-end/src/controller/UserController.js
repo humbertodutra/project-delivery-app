@@ -47,7 +47,7 @@ const userController = {
     const { id } = req.params;
     const result = await userService.deleteUser(id);
     res.status(202).json(result);
-  }
+  },
 };
 
 module.exports = userController;
