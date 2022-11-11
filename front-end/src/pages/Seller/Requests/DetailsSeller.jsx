@@ -9,10 +9,12 @@ import AppWrap from '../../../wrapper/AppWrap';
 
 function DetailsSeller() {
   const [order, setOrder] = useState([]);
+  const [update, setUpdate] = useState(false);
   const { id } = useParams();
 
   const handleClick = async ({ target: { name } }) => {
     const patchStatus = await requestPatch(`/seller/orders/${id}`, { status: name });
+    setUpdate(!update);
     return patchStatus;
   };
 
@@ -22,8 +24,7 @@ function DetailsSeller() {
       setOrder(request);
     }
     getOrder();
-  }, [id]);
-  console.log(order);
+  }, [id, update]);
 
   function date() {
     if (order[0] !== undefined) {
@@ -37,12 +38,14 @@ function DetailsSeller() {
     <div className="container-table">
       <h1>Detalhes do Pedido</h1>
       <div className="bar-info">
-        <h2
-          data-testid="seller_order_details__element-order-details-label-order-id"
-        >
-          Pedido
-          { order[0]?.id}
-        </h2>
+        <div>
+          <h2
+            data-testid="seller_order_details__element-order-details-label-order-id"
+          >
+            Pedido
+            { order[0] && order[0]?.id}
+          </h2>
+        </div>
         <h2
           data-testid="seller_order_details__element-order-details-label-order-date"
         >
@@ -52,13 +55,16 @@ function DetailsSeller() {
         <h2
           data-testid="seller_order_details__element-order-details-label-delivery-status"
         >
-          Status
-          { order[0]?.status}
+          { order[0] && order[0]?.status}
         </h2>
         <button
           type="button"
           data-testid="seller_order_details__button-preparing-check"
+          onClick={ handleClick }
           name="Preparando"
+          disabled={
+            order[0]?.status === 'Preparando' || order[0]?.status === 'Em Trânsito'
+          }
         >
           PREPARAR PEDIDO
         </button>
@@ -67,6 +73,9 @@ function DetailsSeller() {
           data-testid="seller_order_details__button-dispatch-check"
           onClick={ handleClick }
           name="Em Trânsito"
+          disabled={
+            order[0]?.status === 'Em Trânsito' || order[0]?.status === 'Pendente'
+          }
         >
           SAIU PARA ENTREGA
         </button>
