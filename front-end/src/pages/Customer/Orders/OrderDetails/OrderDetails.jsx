@@ -23,6 +23,8 @@ function OrderDetails() {
     }
   };
 
+  const dataTestString = 'customer_order_details__element-order-details-label-delivery-status';
+
   useEffect(() => {
     requestGet(`/customer/orders/${id}`).then((response) => {
       setOrder(response[0]);
@@ -67,7 +69,7 @@ function OrderDetails() {
 
         <div>
           <h2
-            data-testid="customer_order_details__element-order-details-label-delivery-status"
+            data-testid={ dataTestString }
           >
             {order?.status}
           </h2>
