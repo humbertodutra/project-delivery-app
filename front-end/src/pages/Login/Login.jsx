@@ -94,7 +94,6 @@ function Login() {
   };
 
   useEffect(() => {
-    console.log(currentUser);
     if (currentUser.token) {
       navigate('/customer/products');
     }
