@@ -2,6 +2,8 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import PropTypes from 'prop-types';
 
 export default function TableComponent({ products }) {
+  const calculateSubTotal = (price, quantity) => price * quantity;
+
   const calculateTotal = products.reduce((acc, curr) => {
     const mult = Number(curr.price) * Number(curr.quantity.quantity);
     const result = acc + mult;
@@ -49,7 +51,7 @@ export default function TableComponent({ products }) {
                 `customer_order_details__element-order-table-sub-total-${index}`
               }
             >
-              {product.price}
+              {product.price.replace('.', ',')}
             </TableCell>
 
             <TableCell
@@ -57,15 +59,17 @@ export default function TableComponent({ products }) {
                 `customer_order_details__element-order-total-price-${index}`
               }
             >
-              {Number(product.price) * Number(product.quantity.quantity)}
+              {
+                calculateSubTotal(product.price, product.quantity.quantity)
+                  .toFixed(2).replace('.', ',')
+              }
             </TableCell>
           </TableRow>
         ))}
       </TableBody>
       <div>
         <h1 data-testid="customer_order_details__element-order-total-price">
-          Total:
-          {calculateTotal.toFixed(2)}
+          {calculateTotal.toFixed(2).replace('.', ',')}
         </h1>
       </div>
     </Table>
