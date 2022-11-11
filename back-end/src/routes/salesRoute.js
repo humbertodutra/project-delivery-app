@@ -11,6 +11,10 @@ salesRoute.get('/customer/orders', auth, getAll);
 salesRoute.get('/customer/orders/:id', auth, getById);
 salesRoute.patch('/customer/orders/:id', auth, updateStatus);
 
+salesRoute.get('/seller/orders', auth, getAll);
+salesRoute.get('/seller/orders/:id', auth, getById);
+salesRoute.patch('/seller/orders/:id', auth, updateStatus);
+
 salesRoute.post(
     '/customer/orders',
     auth,

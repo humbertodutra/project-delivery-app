@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import SellerCard from '../../../components/SellerCard/SellerCard';
 import Footer from '../../../components/Footer/Footer';
 import Header from '../../../components/Header/Header';
+import SellerCard from '../../../components/SellerCard/SellerCard';
 import { requestGet } from '../../../utils/Resquest';
 
 import AppWrap from '../../../wrapper/AppWrap';
