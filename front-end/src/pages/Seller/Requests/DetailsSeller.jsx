@@ -8,15 +8,14 @@ import AppWrap from '../../../wrapper/AppWrap';
 function DetailsSeller() {
   const [details, setDetails] = useState([]);
   const { id } = useParams();
+
   useEffect(() => {
     requestGet(`/customer/orders/${id}`)
       .then((response) => {
         setDetails(response);
-        console.log(response);
-        console.log(id);
       });
-  }, []);
-  console.log(details);
+  }, [id]);
+
   return (
     details.map((detail, index) => (
 

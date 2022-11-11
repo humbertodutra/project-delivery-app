@@ -13,9 +13,9 @@ function Header() {
   const { user: { name }, login: { logout } } = useContext(HomeerContext);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     navigate('/');
-    logout();
   };
 
   return (
