@@ -23,4 +23,9 @@ export const requestPost = async (endpoint, body) => {
   return data;
 };
 
+export const requestPatch = async (endpoint, body) => {
+  const { data } = await api.patch(endpoint, body);
+  return data;
+};
+
 export default api;
