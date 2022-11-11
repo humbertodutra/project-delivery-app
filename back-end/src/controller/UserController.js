@@ -32,6 +32,12 @@ const userController = {
     return res.status(200).json(users);
   },
 
+  getUserById: async (req, res) => {
+    const { id } = req.params;
+    const user = await userService.listOneUserServiceById(id);
+    return res.status(200).json(user);
+  },
+
   listAllUsers: async (_req, res) => {
     const result = await userService.listAllUsers();
     res.status(200).json(result);

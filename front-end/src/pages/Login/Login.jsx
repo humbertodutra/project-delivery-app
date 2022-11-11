@@ -95,7 +95,6 @@ function Login() {
   }, [currentUser.role, isSignedIn, navigate]);
 
   useEffect(() => {
-    console.log('Redirecionando!');
     redirectToTheirHome();
   }, [redirectToTheirHome]);
 

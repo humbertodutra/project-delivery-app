@@ -1,6 +1,15 @@
-import { Table, TableCell, TableHead, TableRow } from '@mui/material';
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import PropTypes from 'prop-types';
 
-export default function TableComponent() {
+export default function TableComponent({ products }) {
+  const calculateSubTotal = (price, quantity) => price * quantity;
+
+  const calculateTotal = products.reduce((acc, curr) => {
+    const mult = Number(curr.price) * Number(curr.quantity.quantity);
+    const result = acc + mult;
+    return result;
+  }, 0);
+
   return (
     <Table align="center" sx={ { width: 800 } } aria-label="simple table">
       <TableHead>
@@ -12,6 +21,65 @@ export default function TableComponent() {
           <TableCell align="center">Sub-total</TableCell>
         </TableRow>
       </TableHead>
+      <TableBody>
+        {products.map((product, index) => (
+          <TableRow key={ product.name }>
+            <TableCell
+              data-testid={
+                `customer_order_details__element-order-table-item-number-${index}`
+              }
+            >
+              {index + 1}
+            </TableCell>
+
+            <TableCell
+              data-testid={ `customer_order_details__element-order-table-name-${index}` }
+            >
+              {product.name}
+            </TableCell>
+
+            <TableCell
+              data-testid={
+                `customer_order_details__element-order-table-quantity-${index}`
+              }
+            >
+              {product.quantity.quantity}
+            </TableCell>
+
+            <TableCell
+              data-testid={
+                `customer_order_details__element-order-table-sub-total-${index}`
+              }
+            >
+              {product.price.replace('.', ',')}
+            </TableCell>
+
+            <TableCell
+              data-testid={
+                `customer_order_details__element-order-total-price-${index}`
+              }
+            >
+              {
+                calculateSubTotal(product.price, product.quantity.quantity)
+                  .toFixed(2).replace('.', ',')
+              }
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <div>
+        <h1 data-testid="customer_order_details__element-order-total-price">
+          {calculateTotal.toFixed(2).replace('.', ',')}
+        </h1>
+      </div>
     </Table>
   );
 }
+
+TableComponent.propTypes = {
+  products: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.string,
+    quantity: PropTypes.shape({ quantity: PropTypes.number }),
+  })).isRequired,
+};
