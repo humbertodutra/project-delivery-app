@@ -38,7 +38,7 @@ function App() {
           <Route path="/seller/orders" element={ <RequestsSeller /> } />
           <Route path="/seller/orders/:id" element={ <DetailsSeller /> } />
         </Route>
-        
+
         <Route path="/admin">
           <Route index />
           <Route path="/admin/manage" element={ <Manage /> } />

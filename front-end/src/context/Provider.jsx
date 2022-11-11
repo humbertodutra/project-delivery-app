@@ -16,11 +16,14 @@ export function Provider({ children }) {
   const [loading, setLoading] = useState(true);
   const [productsCart, setProductsCart] = useState([]);
 
-  const logout = useCallback(() => {
-    console.log('LOGOUT');
-    setUser(undefined);
-    setIsSignedIn(false);
-  }, [setUser]);
+  const logout = useCallback(async () => {
+    await setUser({
+      name: '', email: '', role: '', token: '',
+    });
+    await setCart([]);
+    await setIsSignedIn(false);
+    await setHeaderToken('');
+  }, [setUser, setCart, setIsSignedIn]);
 
   const memorizedContext = useMemo(
     () => ({
@@ -61,6 +64,8 @@ export function Provider({ children }) {
   );
 
   useEffect(() => {
+    console.info('PROVIDER RODANDO!');
+
     async function loadUser() {
       const userString = localStorage.getItem('user');
       const userObj = await JSON.parse(userString);

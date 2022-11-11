@@ -44,7 +44,6 @@ function Manage() {
 
       <div className="app__admin-table">
         <h3>Usuários cadastrados</h3>
-        {console.log(users)}
         <TableContainer component={ Paper }>
           <AdminTable users={ users } handleDelete={ handleDelete } />
         </TableContainer>
