@@ -6,13 +6,16 @@ const jwtService = require('../middlewares/jwtService');
 const userService = {
   createUser: async ({ name, email, password }) => {
     const data = await users.findOne({ where: { [Op.or]: [{ email }, { name }] } });
+
     if (data) {
       const error = new Error('User Already Registered');
       error.name = 'ConflitError';
       throw error;
     }
+
     const crypt = md5(password);
     await users.create({ name, email, password: crypt, role: 'customer' });
+    
     return { name, email, password };
   },
 
@@ -55,6 +58,41 @@ const userService = {
   getByRole: async (role) => {
     const usersByRole = await users.findAll({ where: { role } });
     return usersByRole;
+  },
+
+  listAllUsers: async () => {
+    const result = await users.findAll({
+      attributes: { exclude: ['password'] },
+    });
+    return result;
+  },
+
+  adminRegister: async ({ name, email, password, role }) => {
+    const data = await users.findOne({ where: { [Op.or]: [{ email }, { name }] } });
+
+    if (data) {
+      const error = new Error('User Already Registered');
+      error.name = 'ConflitError';
+      throw error;
+    }
+    
+    const crypt = md5(password);
+    await users.create({ name, email, password: crypt, role });
+    return { name, email, password, role };
+  },
+
+  deleteUser: async (id) => {
+    const user = await users.findOne({ where: { id } });
+    if (!user) {
+      const error = new Error('User not found');
+      error.name = 'NotExist';
+      throw error;
+    }
+
+    const result = await users.destroy({ where: { id } });
+    if (result) {
+      return { message: 'User deleted' };
+    }
   },
 };
 

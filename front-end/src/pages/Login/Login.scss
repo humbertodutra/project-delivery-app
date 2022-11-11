@@ -35,6 +35,16 @@
       }
     }
   }
+
+  .input-button {
+    width: 80%;
+    font-weight: 600;
+    font-family: $font-base;
+  
+    &:first-of-type {
+      color: $white-color;
+    }
+  }
 }
 
 .app__login-error {
