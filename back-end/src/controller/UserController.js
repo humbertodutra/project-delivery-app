@@ -34,7 +34,24 @@ const userController = {
     const {id} = req.params;
     const user = await userService.listOneUserServiceById(id);
     return res.status(200).json(user);
-  }
+  },
+
+  listAllUsers: async (_req, res) => {
+    const result = await userService.listAllUsers();
+    res.status(200).json(result);
+  },
+
+  adminRegister: async (req, res) => {
+    const { name, email, password, role } = await validationBodyUserAdmin(req.body);
+    const data = await userService.adminRegister({ name, email, password, role });
+    res.status(201).json(data);
+  },
+
+  deleteUser: async (req, res) => {
+    const { id } = req.params;
+    const result = await userService.deleteUser(id);
+    res.status(202).json(result);
+  },
 };
 
 module.exports = userController;

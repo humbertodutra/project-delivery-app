@@ -94,10 +94,8 @@ function Login() {
   };
 
   useEffect(() => {
-    if (currentUser.token) {
-      navigate('/customer/products');
-    }
-  }, []);
+    redirectToTheirHome();
+  }, [redirectToTheirHome]);
 
   return (
     <div className="app__flex app__login">
