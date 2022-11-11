@@ -6,13 +6,16 @@ const jwtService = require('../middlewares/jwtService');
 const userService = {
   createUser: async ({ name, email, password }) => {
     const data = await users.findOne({ where: { [Op.or]: [{ email }, { name }] } });
+
     if (data) {
       const error = new Error('User Already Registered');
       error.name = 'ConflitError';
       throw error;
     }
+
     const crypt = md5(password);
     await users.create({ name, email, password: crypt, role: 'customer' });
+    
     return { name, email, password };
   },
 

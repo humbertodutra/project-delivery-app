@@ -17,9 +17,7 @@ export function Provider({ children }) {
   const [productsCart, setProductsCart] = useState([]);
 
   const logout = useCallback(async () => {
-    await setUser({
-      name: '', email: '', role: '', token: '',
-    });
+    await setUser(undefined);
     await setCart([]);
     await setIsSignedIn(false);
     await setHeaderToken('');
