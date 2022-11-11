@@ -9,12 +9,13 @@ import {
   Customer,
   Checkout,
   Orders,
+  Manage,
   RequestsSeller,
   OrderDetails,
 } from './pages';
 import DetailsSeller from './pages/Seller/Requests/DetailsSeller';
 
-// Feito pelo G4 Rerun
+// Feito pelo G4
 
 function App() {
   return (
@@ -36,6 +37,11 @@ function App() {
           <Route index />
           <Route path="/seller/orders" element={ <RequestsSeller /> } />
           <Route path="/seller/orders/:id" element={ <DetailsSeller /> } />
+        </Route>
+
+        <Route path="/admin">
+          <Route index />
+          <Route path="/admin/manage" element={ <Manage /> } />
         </Route>
 
       </Routes>

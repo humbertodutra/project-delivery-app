@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -21,6 +21,7 @@ function Login() {
       setUser,
     },
     login: {
+      isSignedIn,
       setIsSignedIn,
     },
   } = useContext(HomeerContext);
@@ -86,12 +87,12 @@ function Login() {
         setError(message);
         setIsError(true);
       }
-
-      // setError(err.message);
-      // setIsError(true);
-      // console.log(err);
     }
   };
+
+  const redirectToTheirHome = useCallback(() => {
+    if (isSignedIn) navigate(Roles[currentUser.role]);
+  }, [currentUser.role, isSignedIn, navigate]);
 
   useEffect(() => {
     redirectToTheirHome();

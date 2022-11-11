@@ -23,4 +23,9 @@ export const requestPost = async (endpoint, body) => {
   return data;
 };
 
+export const requestDelete = async (endpoint, id) => {
+  const { data } = await api.delete(endpoint, { params: { id } });
+  return data;
+};
+
 export default api;

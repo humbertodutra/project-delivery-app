@@ -1,4 +1,4 @@
-const { validationBodyUser } = require('../middlewares/BodyVals');
+const { validationBodyUser, validationBodyUserAdmin } = require('../middlewares/BodyVals');
 const userService = require('../services/UserService');
 const { decodeToken } = require('../middlewares/jwtService');
 
@@ -9,10 +9,12 @@ const userController = {
     const data = await userService.createUser({ name, email, password });
     res.status(201).json(data);
   },
+
   makeLogin: async (req, res) => {
     const login = await userService.makeLogin(req.body);
     return res.status(200).json({ token: login });
   },
+
   listOneUserController: async (req, res) => {
     const token = req.headers.authorization;
     const decoding = decodeToken(token);

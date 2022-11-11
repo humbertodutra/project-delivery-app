@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Header from '../../../components/Header/Header';
@@ -45,10 +44,12 @@ function Products() {
     setCart(newCart);
   };
 
-  const findItemInCart = (id) => cart.find((item) => item.id === id);
+  const findItemInCart = useCallback((id) => {
+    const item = cart.find((cItem) => cItem.id === id);
+    return item;
+  }, [cart]);
 
   const onInputChange = (product) => {
-    console.log('Executou!', product);
     const itemInCart = findItemInCart(product.id);
     if (!itemInCart) return newItemCart(product);
 
@@ -66,16 +67,13 @@ function Products() {
           return { ...product, quantity: 0 };
         });
 
-        console.log('Products', newResp);
         setProducts(newResp);
       });
-  }, []);
+  }, [findItemInCart]);
 
   return (
     <div className="app__flex app__products">
       <div className="app__flex app__products-space">
-        {console.log(products)}
-        {console.log(cart)}
         {products ? (
           <>
             {
